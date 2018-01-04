@@ -1,0 +1,54 @@
+/*
+Civitrans
+La Cívica Impresores S.A.S
+Copyright 2016.
+*/
+/* 
+    Created on : 13/06/2016, 02:23:27 PM
+    Author     : Miguel Borja
+*/
+
+.ui-inputfield,.ui-inputfield.ui-inputfield.ui-state-focus{
+    border: none;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    font-weight: normal;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.ui-inputfield, .ui-inputfield.ui-state-focus, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    border: none;
+    background: inherit;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: inherit;
+}
+.ui-corner-all, .ui-inputfield.ui-state-focus  {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+.ui-state-default, .ui-inputfield.ui-state-focus {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.ui-state-default, .ui-inputfield.ui-state-focus, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: none;
+    background: none;
+    font-weight: normal;
+    color: inherit;
+    text-shadow: 0px;
+}
+
+.ui-datepicker-calendar{
+    background: whitesmoke;
+}
+
+.ui-datepicker-header {
+    background: whitesmoke;
+}

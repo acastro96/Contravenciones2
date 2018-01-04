@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivUsuariosCajasTipopagos" table="CIV_USUARIOS_CAJAS_TIPOPAGOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los tipos de pago para un usuario en una caja.</comment>
+        <id name="usuCajTpId" type="big_decimal">
+            <column name="USU_CAJ_TP_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="usuId" type="long">
+            <column name="USU_ID" precision="10" scale="0" not-null="true">
+                <comment>ID usuario</comment>
+            </column>
+        </property>
+        <property name="cajId" type="long">
+            <column name="CAJ_ID" precision="10" scale="0" not-null="true">
+                <comment>ID de caja</comment>
+            </column>
+        </property>
+        <property name="ustipTipoPago" type="big_decimal">
+            <column name="USTIP_TIPO_PAGO" precision="22" scale="0" not-null="true">
+                <comment>Tipo de pago</comment>
+            </column>
+        </property>
+        <property name="ustipEstado" type="big_decimal">
+            <column name="USTIP_ESTADO" precision="22" scale="0" not-null="true">
+                <comment>Estado del registro</comment>
+            </column>
+        </property>
+        <property name="fechainicial" type="date">
+            <column name="FECHAINICIAL" length="7" not-null="true" />
+        </property>
+        <property name="fechafin" type="date">
+            <column name="FECHAFIN" length="7" />
+        </property>
+    </class>
+</hibernate-mapping>

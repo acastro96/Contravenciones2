@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivRecursos" table="CIV_RECURSOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los recursos disponibles para los usuarios del sistema.</comment>
+        <id name="recId" type="big_decimal">
+            <column name="REC_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civModulos" class="com.contravenciones.tr.persistence.CivModulos" fetch="select">
+            <column name="MOD_ID" precision="22" scale="0">
+                <comment>ID de modulo</comment>
+            </column>
+        </many-to-one>
+        <property name="recNombre" type="string">
+            <column name="REC_NOMBRE" length="100">
+                <comment>Nombre de recurso</comment>
+            </column>
+        </property>
+        <property name="recDescripcion" type="string">
+            <column name="REC_DESCRIPCION" length="400">
+                <comment>Descripcion de recurso</comment>
+            </column>
+        </property>
+        <property name="recFechainicial" type="date">
+            <column name="REC_FECHAINICIAL" length="7">
+                <comment>Fecha de inicio de registro</comment>
+            </column>
+        </property>
+        <property name="recFechafin" type="date">
+            <column name="REC_FECHAFIN" length="7">
+                <comment>Fecha fin de registro</comment>
+            </column>
+        </property>
+        <property name="recEstado" type="big_decimal">
+            <column name="REC_ESTADO" precision="22" scale="0">
+                <comment>Estado del registro</comment>
+            </column>
+        </property>
+        <property name="recCarpeta" type="string">
+            <column name="REC_CARPETA" length="500">
+                <comment>Carpeta donde se encuentra localizado el recurso</comment>
+            </column>
+        </property>
+        <property name="recTipo" type="big_decimal">
+            <column name="REC_TIPO" precision="22" scale="0">
+                <comment>Tipo de recurso</comment>
+            </column>
+        </property>
+        <set name="civDetalleRecUsus" table="CIV_DETALLE_REC_USU" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="REC_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecUsu" />
+        </set>
+        <set name="civPerfilrecursos" table="CIV_PERFILRECURSO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="REC_ID" precision="22" scale="0" not-null="true">
+                    <comment>ID del recurso</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivPerfilrecurso" />
+        </set>
+        <set name="civDetalleRecursoses" table="CIV_DETALLE_RECURSOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="REC_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecursos" />
+        </set>
+    </class>
+</hibernate-mapping>

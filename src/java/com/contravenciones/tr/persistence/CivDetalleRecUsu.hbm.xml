@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivDetalleRecUsu" table="CIV_DETALLE_REC_USU" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="detRecId" type="big_decimal">
+            <column name="DET_REC_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="civRecursos" class="com.contravenciones.tr.persistence.CivRecursos" fetch="select">
+            <column name="REC_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="detRecUsuId" type="big_decimal">
+            <column name="DET_REC_USU_ID" precision="22" scale="0" />
+        </property>
+        <property name="propiedadVisible" type="java.lang.Boolean">
+            <column name="PROPIEDAD_VISIBLE" precision="1" scale="0" />
+        </property>
+        <property name="propiedadEnabled" type="java.lang.Boolean">
+            <column name="PROPIEDAD_ENABLED" precision="1" scale="0" />
+        </property>
+        <property name="fechaInicial" type="date">
+            <column name="FECHA_INICIAL" length="7" />
+        </property>
+        <property name="fechaFin" type="date">
+            <column name="FECHA_FIN" length="7" />
+        </property>
+    </class>
+</hibernate-mapping>

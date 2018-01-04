@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivUsuarios" table="CIV_USUARIOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan la informacion de los usuarios registrados en el sistema.</comment>
+        <id name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civPersonas" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
+            <column name="PER_ID" precision="22" scale="0">
+                <comment>ID unico de persona</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civSedes" class="com.contravenciones.tr.persistence.CivSedes" fetch="select">
+            <column name="SED_ID" precision="22" scale="0">
+                <comment>ID de sede del organismo</comment>
+            </column>
+        </many-to-one>
+        <property name="usuNombre" type="string">
+            <column name="USU_NOMBRE" length="50">
+                <comment>Nombre del usuario</comment>
+            </column>
+        </property>
+        <property name="usuPassword" type="string">
+            <column name="USU_PASSWORD" length="390">
+                <comment>Hash del password</comment>
+            </column>
+        </property>
+        <property name="usuEstado" type="big_decimal">
+            <column name="USU_ESTADO" precision="22" scale="0">
+                <comment>Estado del registro</comment>
+            </column>
+        </property>
+        <property name="usuFechainicial" type="date">
+            <column name="USU_FECHAINICIAL" length="7">
+                <comment>Fecha inicio del registro</comment>
+            </column>
+        </property>
+        <property name="usuFechafinal" type="date">
+            <column name="USU_FECHAFINAL" length="7">
+                <comment>Fecha fin del registro</comment>
+            </column>
+        </property>
+        <property name="usuFechaproceso" type="date">
+            <column name="USU_FECHAPROCESO" length="7">
+                <comment>Fecha del sistema</comment>
+            </column>
+        </property>
+        <property name="usuUsuariorunt" type="big_decimal">
+            <column name="USU_USUARIORUNT" precision="22" scale="0">
+                <comment>Bandera si el usuario es RUNT o no</comment>
+            </column>
+        </property>
+        <set name="civAttemptses" table="CIV_ATTEMPTS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" not-null="true">
+                    <comment>ID unico de usuario</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivAttempts" />
+        </set>
+        <set name="civDetalleRecUsus" table="CIV_DETALLE_REC_USU" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecUsu" />
+        </set>
+        <set name="civUsuperfils" table="CIV_USUPERFIL" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" not-null="true">
+                    <comment>ID de usuario</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUsuperfil" />
+        </set>
+        <set name="civUspHistorias" table="CIV_USP_HISTORIA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0">
+                    <comment>ID de usuario</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUspHistoria" />
+        </set>
+        <set name="civPerfilrecursos" table="CIV_PERFILRECURSO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivPerfilrecurso" />
+        </set>
+        <set name="civUsuarioCajases" table="CIV_USUARIO_CAJAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="10" scale="0" not-null="true">
+                    <comment>ID de usuario</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUsuarioCajas" />
+        </set>
+    </class>
+</hibernate-mapping>

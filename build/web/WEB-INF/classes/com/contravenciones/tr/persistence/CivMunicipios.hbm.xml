@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivMunicipios" table="CIV_MUNICIPIOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los diferentes municipios/localidades nacionales o internacionales</comment>
+        <id name="munId" type="big_decimal">
+            <column name="MUN_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="munNombre" type="string">
+            <column name="MUN_NOMBRE" length="200">
+                <comment>Nombre del municipio</comment>
+            </column>
+        </property>
+        <property name="munCodmunicipio" type="big_decimal">
+            <column name="MUN_CODMUNICIPIO" precision="22" scale="0">
+                <comment>Codigo del municipio</comment>
+            </column>
+        </property>
+        <property name="depId" type="big_decimal">
+            <column name="DEP_ID" precision="22" scale="0">
+                <comment>fk de la tabla civ_departamento</comment>
+            </column>
+        </property>
+        <property name="paiId" type="big_decimal">
+            <column name="PAI_ID" precision="22" scale="0">
+                <comment>fk de la tabla civ_pais</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivOrganismos" table="CIV_ORGANISMOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los datos de los diferentes organismos de transito.</comment>
+        <id name="orgId" type="big_decimal">
+            <column name="ORG_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="orgNombre" type="string">
+            <column name="ORG_NOMBRE" length="100">
+                <comment>Nombre del organismo de transito</comment>
+            </column>
+        </property>
+        <property name="orgTelefono" type="string">
+            <column name="ORG_TELEFONO" length="20">
+                <comment>Telefono del organismo</comment>
+            </column>
+        </property>
+        <property name="orgDireccion" type="string">
+            <column name="ORG_DIRECCION" length="100">
+                <comment>Direccion fisica del organismo</comment>
+            </column>
+        </property>
+        <property name="orgEmail" type="string">
+            <column name="ORG_EMAIL" length="100">
+                <comment>Correo electronico del organismo</comment>
+            </column>
+        </property>
+        <property name="orgNit" type="string">
+            <column name="ORG_NIT" length="100">
+                <comment>NIT del organismo de transito</comment>
+            </column>
+        </property>
+        <property name="orgCodigo" type="string">
+            <column name="ORG_CODIGO" length="100">
+                <comment>Codigo del organismo ante el RUNT</comment>
+            </column>
+        </property>
+        <property name="orgNombrecorto" type="string">
+            <column name="ORG_NOMBRECORTO" length="60">
+                <comment>Abreviacion del nombre</comment>
+            </column>
+        </property>
+        <property name="orgEstado" type="big_decimal">
+            <column name="ORG_ESTADO" precision="22" scale="0">
+                <comment>Estado del registro</comment>
+            </column>
+        </property>
+        <property name="orgFechainicial" type="date">
+            <column name="ORG_FECHAINICIAL" length="7">
+                <comment>Fecha inicial del registro</comment>
+            </column>
+        </property>
+        <property name="orgFechafinal" type="date">
+            <column name="ORG_FECHAFINAL" length="7">
+                <comment>Fecha final del registro</comment>
+            </column>
+        </property>
+        <property name="orgFechaproceso" type="date">
+            <column name="ORG_FECHAPROCESO" length="7">
+                <comment>Fecha del sistema</comment>
+            </column>
+        </property>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0">
+                <comment>ID unico del usuario</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

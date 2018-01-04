@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivGrupos" table="CIV_GRUPOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los grupos parametricos del sistema.</comment>
+        <id name="gruId" type="big_decimal">
+            <column name="GRU_ID" precision="38" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="gruNombre" type="string">
+            <column name="GRU_NOMBRE" length="50">
+                <comment>Nombre del grupo</comment>
+            </column>
+        </property>
+        <property name="fechaInicial" type="date">
+            <column name="FECHA_INICIAL" length="7">
+                <comment>Fecha inicial del registro</comment>
+            </column>
+        </property>
+        <property name="fechaFinal" type="date">
+            <column name="FECHA_FINAL" length="7">
+                <comment>Fecha final del registro</comment>
+            </column>
+        </property>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0">
+                <comment>fk de la tabla civ_usuarios para marcar quien ingreso el grupo</comment>
+            </column>
+        </property>
+        <set name="civParametroses" table="CIV_PARAMETROS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="GRU_ID" precision="22" scale="0">
+                    <comment>ID unico del grupo parametrico del sistema</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivParametros" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:flow="http://www.springframework.org/schema/webflow-config"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+          http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+          http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+          http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.0.xsd
+          http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi-1.2.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+">
+
+    <context:component-scan base-package="com.contravenciones"/>
+    
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jdbc/Contravenciones" />
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.generate_statistics">true</prop>
+                <prop key="hibernate.connection.pool_size">3</prop>
+                <prop key="hibernate.max_fetch_depth">1</prop>
+                <prop key="hibernate.connection.release_mode">after_transaction</prop>
+                <prop key="hibernate.transaction.auto_close_session">true</prop>
+                <prop key="hibernate.transaction.flush_before_completion">true</prop>
+                <prop key="hibernate.jdbc.use_get_generated_keys">true</prop>
+            </props>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>com/contravenciones/tr/persistence/CivMunicipios.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPoblados.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDirecciones.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDetalleRecUsu.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDetalleRecursos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivSedes.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivGrupos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDivipos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivUsuperfil.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivUspHistoria.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivParametros.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivCajas.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivUsuarios.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPerfilrecurso.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPersonas.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPais.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivUsuarioCajas.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPerfiles.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivModulos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivRecursos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivAttempts.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivErrores.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/LogEventos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivHistorialUsuarioCaja.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivHistorialPerfilRecurso.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivUsuariosCajasTipopagos.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- DAOS -->
+    <bean id="loginDAO" class="com.contravenciones.jdbc.dao.DaoLogin">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="attemptsDAO" class="com.contravenciones.jdbc.dao.DaoAttempts">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="personasDAO" class="com.contravenciones.jdbc.dao.DaoPersonas">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="usuariosDAO" class="com.contravenciones.jdbc.dao.DaoUsuarios">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="cajasDAO" class="com.contravenciones.jdbc.dao.DaoCajas">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="historialPerfilRecursoDAO" class="com.contravenciones.jdbc.dao.DaoHistorialPerfilRecurso">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean id="historialUsuarioCajaDAO" class="com.contravenciones.jdbc.dao.DaoHistorialUsuarioCaja">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean id="detalleRecursosDAO" class="com.contravenciones.jdbc.dao.DaoDetalleRecursos">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean id="detalleRecUsuDAO" class="com.contravenciones.jdbc.dao.DaoDetalleRecUsu"> 
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="modulosDAO" class="com.contravenciones.jdbc.dao.DaoModulos">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="parametrosDAO" class="com.contravenciones.jdbc.dao.DaoParametros">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="perfilesDAO" class="com.contravenciones.jdbc.dao.DaoPerfiles">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="recursosDAO" class="com.contravenciones.jdbc.dao.DaoRecursos">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="sedesDAO" class="com.contravenciones.jdbc.dao.DaoSedes">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="usuarioCajaTipoPagoDAO" class="com.contravenciones.jdbc.dao.DaoUsuariosCajasTipoPagos">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="usuarioCajasDAO" class="com.contravenciones.jdbc.dao.DaoUsuarioCajas">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="usuarioPerfilDAO" class="com.contravenciones.jdbc.dao.DaoUsuarioPerfil">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="perfilRecursoDAO" class="com.contravenciones.jdbc.dao.DaoPerfilRecurso">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="municipiosDAO" class="com.contravenciones.jdbc.dao.DaoMunicipios">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="departamentosDAO" class="com.contravenciones.jdbc.dao.DaoDepartamentos">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="paisDAO" class="com.contravenciones.jdbc.dao.DaoPais">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <!-- BOS -->
+    <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
+        <property name="loginDAO" ref="loginDAO"></property>
+        <property name="attemptsDAO" ref="attemptsDAO"></property>
+        <property name="personasDAO" ref="personasDAO"></property>
+        <property name="usuariosDAO" ref="usuariosDAO" />
+    </bean>   
+    <bean id="GestionUsuarioBO" class="com.contravenciones.tr.bo.GestionUsuarioImplBO">
+        <property name="usuariosDAO" ref="usuariosDAO" />
+        <property name="personasDAO" ref="personasDAO" />
+        <property name="perfilesDAO" ref="perfilesDAO" />
+        <property name="perfilRecursosDAO" ref="perfilRecursoDAO"  />
+        <property name="recursosDAO" ref="recursosDAO" />
+        <property name="usuarioPerfilDAO" ref="usuarioPerfilDAO" />
+        <property name="sedesDAO" ref="sedesDAO" />
+        <property name="parametrosDAO" ref="parametrosDAO"/>
+        <property name="attemptsDAO" ref="attemptsDAO"/>
+        <property name="usuarioCajasDAO" ref="usuarioCajasDAO"/>
+        <property name="modulosDAO" ref="modulosDAO"/>
+        <property name="cajaDAO" ref="cajasDAO"/>
+        <property name="historialPerfilRecursoDAO" ref="historialPerfilRecursoDAO" />
+        <property name="historialUsuarioCajaDAO" ref="historialUsuarioCajaDAO" />
+        <property name="detalleRecursosDAO" ref="detalleRecursosDAO" />
+        <property name="detalleRecUsuDAO" ref="detalleRecUsuDAO" />
+        <property name="usuarioCajaTipoPagoDAO" ref="usuarioCajaTipoPagoDAO"/>
+    </bean>
+     <bean id="parametroBO" class="com.contravenciones.tr.bo.ParametrosImplBO">
+        <property name="parametrosDAO" ref="parametrosDAO" />
+        <property name="departamentosDAO" ref="departamentosDAO" />
+        <property name="municipiosDAO" ref="municipiosDAO" />
+        <property name="paisDAO" ref="paisDAO" />
+        <property name="personasDAO" ref="personasDAO" />
+        <property name="sedesDAO" ref="sedesDAO" />
+        <property name="perfilesDAO" ref="perfilesDAO" />
+        <property name="cajasDAO" ref="cajasDAO" />
+        <property name="usuariosDAO" ref="usuariosDAO" />
+    </bean>
+    <bean id="renovarPasswordBO" class="com.contravenciones.tr.bo.RenovarPasswordImplBO">
+        <property name="usuariosDAO" ref="usuariosDAO" />
+    </bean>
+    <!-- Transaction -->    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+   
+    <tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

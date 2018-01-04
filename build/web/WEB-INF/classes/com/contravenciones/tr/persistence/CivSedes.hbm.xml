@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivSedes" table="CIV_SEDES" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan las sedes de los diferentes organismos de transito</comment>
+        <id name="sedId" type="big_decimal">
+            <column name="SED_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="sedNit" type="string">
+            <column name="SED_NIT" length="100">
+                <comment>NIT de la sede</comment>
+            </column>
+        </property>
+        <property name="sedCodigo" type="string">
+            <column name="SED_CODIGO" length="50">
+                <comment>Codigo de sede</comment>
+            </column>
+        </property>
+        <property name="sedNombrecorto" type="string">
+            <column name="SED_NOMBRECORTO" length="50">
+                <comment>Nombre abreviado de la sede</comment>
+            </column>
+        </property>
+        <property name="sedNombre" type="string">
+            <column name="SED_NOMBRE" length="100">
+                <comment>Nombre de la sede</comment>
+            </column>
+        </property>
+        <property name="orgId" type="big_decimal">
+            <column name="ORG_ID" precision="22" scale="0">
+                <comment>ID del organismo de transito</comment>
+            </column>
+        </property>
+        <property name="direccion" type="string">
+            <column name="DIRECCION" length="100">
+                <comment>Direccion fisica de la sede</comment>
+            </column>
+        </property>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0">
+                <comment>ID unico de usuario que registro la sede</comment>
+            </column>
+        </property>
+        <property name="sedFechainicial" type="date">
+            <column name="SED_FECHAINICIAL" length="7">
+                <comment>Fecha inicial del registro</comment>
+            </column>
+        </property>
+        <property name="sedFinal" type="date">
+            <column name="SED_FINAL" length="7">
+                <comment>Fecha final del registro</comment>
+            </column>
+        </property>
+        <property name="sedEstado" type="big_decimal">
+            <column name="SED_ESTADO" precision="22" scale="0">
+                <comment>Estado del registro</comment>
+            </column>
+        </property>
+        <set name="civUsuarioCajases" table="CIV_USUARIO_CAJAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SED_ID" precision="20" scale="0" not-null="true">
+                    <comment>ID de sede</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUsuarioCajas" />
+        </set>
+        <set name="civUsuarioses" table="CIV_USUARIOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SED_ID" precision="22" scale="0">
+                    <comment>ID de sede del organismo</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUsuarios" />
+        </set>
+    </class>
+</hibernate-mapping>

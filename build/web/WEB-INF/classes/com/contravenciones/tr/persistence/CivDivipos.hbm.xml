@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivDivipos" table="CIV_DIVIPOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los datos de los Divipos a nivel nacional.</comment>
+        <id name="divId" type="big_decimal">
+            <column name="DIV_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="depId" type="big_decimal">
+            <column name="DEP_ID" precision="22" scale="0">
+                <comment>fk de la tabla civ_departamento</comment>
+            </column>
+        </property>
+        <property name="munId" type="big_decimal">
+            <column name="MUN_ID" precision="22" scale="0">
+                <comment>fk de la tabla civ_municipios</comment>
+            </column>
+        </property>
+        <property name="pobId" type="big_decimal">
+            <column name="POB_ID" precision="22" scale="0">
+                <comment>fk de la tabla civ_poblados</comment>
+            </column>
+        </property>
+        <property name="divCodigo" type="big_decimal">
+            <column name="DIV_CODIGO" precision="22" scale="0">
+                <comment>Codigo o identificador del divipo</comment>
+            </column>
+        </property>
+        <property name="paiId" type="big_decimal">
+            <column name="PAI_ID" precision="22" scale="0">
+                <comment>fk de la tabla civ_pais</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

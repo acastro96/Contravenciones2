@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivDirecciones" table="CIV_DIRECCIONES" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan las direcciones disponibles para las persona inscritas en el sistema.</comment>
+        <id name="dirId" type="big_decimal">
+            <column name="DIR_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civPersonas" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
+            <column name="PER_ID" precision="22" scale="0">
+                <comment>Fk de la taabla civ_personas</comment>
+            </column>
+        </many-to-one>
+        <property name="dirDescripcion" type="string">
+            <column name="DIR_DESCRIPCION" length="500">
+                <comment>Detalle del numero de la direccion</comment>
+            </column>
+        </property>
+        <property name="dirTelefono" type="string">
+            <column name="DIR_TELEFONO" length="200">
+                <comment>Telefono de la direccion</comment>
+            </column>
+        </property>
+        <property name="dirEstado" type="big_decimal">
+            <column name="DIR_ESTADO" precision="22" scale="0">
+                <comment>Estado de la direccion</comment>
+            </column>
+        </property>
+        <property name="dirFechainicial" type="date">
+            <column name="DIR_FECHAINICIAL" length="7">
+                <comment>Fecha inicial de registro</comment>
+            </column>
+        </property>
+        <property name="dirFechafinal" type="date">
+            <column name="DIR_FECHAFINAL" length="7">
+                <comment>Fecha final de registro</comment>
+            </column>
+        </property>
+        <property name="dirFechaproceso" type="date">
+            <column name="DIR_FECHAPROCESO" length="7">
+                <comment>Fecha del sistema</comment>
+            </column>
+        </property>
+        <property name="divId" type="big_decimal">
+            <column name="DIV_ID" precision="22" scale="0">
+                <comment>fk del la tabla civ_divipo</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

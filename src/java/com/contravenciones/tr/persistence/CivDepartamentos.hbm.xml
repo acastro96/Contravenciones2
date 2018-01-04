@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivDepartamentos" table="CIV_DEPARTAMENTOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan todos los departamentos nacionales. Ver CIV_DIVIPOS.</comment>
+        <id name="depId" type="big_decimal">
+            <column name="DEP_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="depNombre" type="string">
+            <column name="DEP_NOMBRE" length="200">
+                <comment>Nombre del departamento</comment>
+            </column>
+        </property>
+        <property name="depCodigoarea" type="string">
+            <column name="DEP_CODIGOAREA" length="200">
+                <comment>Codigo de area o zona</comment>
+            </column>
+        </property>
+        <property name="depCoddepartamento" type="big_decimal">
+            <column name="DEP_CODDEPARTAMENTO" precision="22" scale="0">
+                <comment>Codigo de departamento</comment>
+            </column>
+        </property>
+        <property name="paiId" type="big_decimal">
+            <column name="PAI_ID" precision="22" scale="0">
+                <comment>ID unico del pais</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

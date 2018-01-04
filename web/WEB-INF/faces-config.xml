@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.1"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+    <application>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+    </application>
+    
+    <managed-bean>
+        <managed-bean-name>loginBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanLogin</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>loginBO</property-name>
+            <value>#{loginBO}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>gestionusuarioBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanGestionUsuario</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>gestionUsuarioBO</property-name>
+            <value>#{GestionUsuarioBO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <value>#{loginBean}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>parametrosBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanParametros</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>parametroBO</property-name>
+            <value>#{parametroBO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <value>#{loginBean}</value>
+        </managed-property>
+    </managed-bean>
+    <!--Renovar Password-->
+    <managed-bean>
+        <managed-bean-name>renovarPasswordBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanRenovarPassword</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>renovarPasswordBO</property-name>
+            <value>#{renovarPasswordBO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <value>#{loginBean}</value>
+        </managed-property>
+    </managed-bean>
+    <!--End Renovar Password-->
+    <!--
+     <managed-bean>
+         <managed-bean-name>usuariosBean</managed-bean-name>
+         <managed-bean-class>com.contravenciones.jsf.bean.BeanUsuario</managed-bean-class>
+         <managed-bean-scope>view</managed-bean-scope>
+         <managed-property>
+             <property-name>usuarioBO</property-name>
+             <value>#{usuarioBO}</value>
+         </managed-property>
+         <managed-property>
+             <property-name>loginBean</property-name>
+             <value>#{loginBean}</value>
+         </managed-property>
+     </managed-bean>
+    -->
+</faces-config>

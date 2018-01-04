@@ -1,0 +1,1070 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:body>
+
+        <ui:composition template="./plantillas/bucketAdmin/plantillaGeneral.xhtml">
+
+            <ui:define name="content">
+                <c:set var="val" value="false"/>
+                <c:forEach items="${loginBean.listRecursos}" var="rec">
+                    <c:if  test="#{rec eq 'gestionUsuario'}" var="bool">
+                        <c:set var="val" value="true"/>
+                    </c:if>
+                </c:forEach>
+                <c:if  test="#{val eq true}">
+                    <h:form  id="frmConUsuario">
+                        <div class="row">
+                            <section id="main-content" >
+                                <section class="wrapper">
+                                    <div class="col-lg-12">
+                                        <section class="panel">
+                                            <header class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <p:messages closable="true" autoUpdate="false" id="messageGeneral" showDetail="true" />
+                                                    </div>
+                                                </div>
+                                                <h4><i class="fa fa-users"></i> Gestión Usuarios</h4>
+                                                <h:commandLink value="Crear Usuario" class="btn btn-success" onclick="$('#crearUsuario').modal('toggle');">
+                                                    <f:ajax event="click" listener="#{gestionusuarioBean.impListPerfiles()}" render="frmConUsuario:cmbPerfil" />
+                                                </h:commandLink>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <br/><br/>
+                                                    <div class="col-lg-3"></div>
+                                                    <div class="col-sm-1" style="text-align: center;">
+                                                        <h5><b>Usuario:</b></h5>
+                                                    </div>
+
+                                                    <div class="col-sm-4">
+                                                        <div class="input-group m-bot15">
+                                                            <h:inputText a:placeholder="Digite nombre de usuario" class="form-control text-uppercase" validatorMessage="Nombre de Usuario #{loginBean.VALIDATOR_MENSAJE}"  value="#{gestionusuarioBean.nombreUsuario}"  maxlength="20" id="fmrConUsuariotetxNombre"></h:inputText><!--VALUE OK-->
+                                                            <span class="input-group-btn">
+                                                                <h:commandLink class="btn btn-success" value="Consultar">
+                                                                    <f:ajax event="click" listener="#{gestionusuarioBean.listarUsuarios()}" execute="fmrConUsuariotetxNombre" render="frmConUsuario:pnGroup"  />
+                                                                </h:commandLink>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </section>
+
+                                    </div>
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <div class="adv-table">
+                                                <h:panelGroup id="pnGroup">
+                                                    <fieldset>
+                                                        <h:dataTable id="users" class="table table-striped table-bordered table-hover" value="#{gestionusuarioBean.listUsuario}"  var="usu" cellspacing="0">
+                                                            <h:column>
+                                                                <f:facet name="header">Nombre</f:facet>
+                                                                    #{usu.nombreUsuario}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Usuario Runt</f:facet>
+                                                                <h:outputLabel  >
+                                                                    #{usu.usuarioRunt>0?"Si":"No"}
+                                                                </h:outputLabel>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Estado</f:facet>
+                                                                <h:outputLabel style="text" >
+                                                                    #{usu.estado} 
+                                                                </h:outputLabel>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Fecha Inicio</f:facet>
+                                                                <h:outputLabel value="#{usu.fechainicio}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                                </h:outputLabel>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Fecha Fin</f:facet>
+                                                                <h:outputLabel value="#{usu.fechaFin}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                                </h:outputLabel>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Actualizar</f:facet>
+                                                                <h:commandLink class="fa fa-edit" >  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                    <f:ajax event="click" listener="#{gestionusuarioBean.datosUsuarioActualizacion(usu)}" execute="usuEstado usuRunt" render="frmConUsuario:pnlaccordion3 frmConUsuario:btnActualizarRecursos frmConUsuario:accordionPagoCaja frmConUsuario:accordionCajaUsuario" />
+                                                                </h:commandLink>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Perfilar</f:facet>
+                                                                <h:commandLink class="fa fa-check-square">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                    <f:ajax event="click" listener="#{gestionusuarioBean.datosUsuario(usu)}" execute="usuEstado usuRunt" render="frmConUsuario:pnlaccordion2" />
+                                                                </h:commandLink>
+                                                            </h:column>
+                                                        </h:dataTable>
+                                                    </fieldset>
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            $('.table').dataTable({
+                                                                language: {
+                                                                    "url": "#{request.contextPath}\resources\js\i18n\Spanish.lang"
+                                                                }
+                                                            });
+                                                        });
+                                                        function reload() {
+                                                            $('.table').dataTable({
+                                                                language: {
+                                                                    "url": "#{request.contextPath}\resources\js\i18n\Spanish.lang"
+                                                                }
+                                                            });
+                                                        }
+
+
+
+                                                        function confirmar(r)
+                                                        {
+
+                                                            document.write(r);
+                                                            if (!confirm("Si desactiva este recurso se deshabilitarán las cajas y/o tipos de pago. ¿Desea continuar?"))
+                                                            {
+                                                                return false; //no se borra 
+                                                            } else
+                                                            {
+                                                                //si se borra 
+                                                                return true;
+                                                            }
+
+
+
+
+                                                        }
+
+                                                        $(".datepicker").mask("99/99/2099");
+                                                    </script>
+
+                                                </h:panelGroup>  
+                                            </div>
+                                        </div>
+                                    </section>       
+                                </section>
+
+                            </section>
+                        </div>
+
+                        <!--Modal Crear usuario -->
+                        <div class="modal fade" id="crearUsuario" style="overflow-y: scroll;" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <h4 class="modal-title" id="myModalLabel">Crear Usuario</h4>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p:messages id="messageErrorCrearUsuario" showDetail="true" closable="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:panelGroup class="modal-body" id="modalbodyCrearUsuario">
+                                            <div class="col-lg-12">
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        Datos del usuario
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="col-lg-6">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    Datos de la persona                        </div>
+                                                                <div class="panel-body">
+                                                                    <div class="form-group">
+                                                                        <h:outputLabel>Tipo Documento</h:outputLabel>
+                                                                        <h:selectOneMenu disabled="${gestionusuarioBean.tipdoc}" id="cmbTipoDocumento" value="#{gestionusuarioBean.tipoDocumento}" class="select2-dropdown form-control ">
+                                                                            <f:selectItems value="#{parametrosBean.tipo_documentos}"  var="listaTipoDocumento" itemLabel="#{listaTipoDocumento.nombreP}" itemValue="#{listaTipoDocumento.code}" />
+                                                                        </h:selectOneMenu>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <h:outputLabel>Documento</h:outputLabel>
+                                                                        <h:inputText readonly="${gestionusuarioBean.doc}" class="form-control text-uppercase" validatorMessage="Documento #{loginBean.VALIDATOR_MENSAJE}" value="#{gestionusuarioBean.documento}" id="txtDocumentoPersona" maxlength="30">
+                                                                            <f:validateRegex pattern="#{loginBean.regex}" />
+                                                                            <f:ajax event="blur"  listener="#{gestionusuarioBean.consultarPersona()}" render="frmConUsuario:txtNombre frmConUsuario:txtUsuario btnPerfilar btnCrear"  execute="cmbTipoDocumento" />
+                                                                        </h:inputText><!--VALUE OK-->
+                                                                    </div>
+
+                                                                    <div class="form-group has-success">
+                                                                        <h:outputLabel>Persona Encontrada</h:outputLabel>
+                                                                        <h:inputText readonly="true" class="form-control success" id="txtNombre" value="#{gestionusuarioBean.nombrePersona}">
+                                                                        </h:inputText>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <h:panelGrid id="mensajePerfilar">
+                                                                <h:panelGroup rendered="${gestionusuarioBean.doc}">
+                                                                    <div class="mensaje-div mensaje-success">
+                                                                        Click en <b>Perfilar</b> para asignar los recursos al usuario.
+                                                                    </div>
+                                                                </h:panelGroup>
+                                                            </h:panelGrid>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    Datos del usuario del sistema </div>
+                                                                <div class="panel-body">
+                                                                    <div class="form-group">
+                                                                        <h:outputLabel>Usuario</h:outputLabel>
+                                                                        <h:inputText readonly="true" class="form-control success" id="txtUsuario" value="#{gestionusuarioBean.nombreUsuarioPerfilar}"/>
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <h:outputLabel>
+                                                                            Perfil
+                                                                        </h:outputLabel>
+                                                                        <h:selectOneMenu disabled="${gestionusuarioBean.doc}" value="#{gestionusuarioBean.codePerfilSeleccionado}" id="cmbPerfil"  class="form-control select2-dropdown">
+                                                                            <f:selectItems value="#{gestionusuarioBean.listPerfil}"  var="perfilUsuario"  itemValue="#{perfilUsuario.codePerfil}" itemLabel="#{perfilUsuario.nombrePerfil}" />
+                                                                        </h:selectOneMenu>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <h:outputLabel>
+                                                                            Sede
+                                                                        </h:outputLabel>
+                                                                        <h:selectOneMenu disabled="${gestionusuarioBean.doc}" value="#{gestionusuarioBean.codeSede}" id="drpSede"  class="form-control select2-dropdown">
+                                                                            <f:selectItems value="#{parametrosBean.listSedes(234)}"  var="sede"  itemValue="#{sede.code}" itemLabel="#{sede.nombreP}" />
+                                                                        </h:selectOneMenu>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <h:outputLabel>
+                                                                            Usuario Runt
+                                                                        </h:outputLabel>
+                                                                        <h:selectOneMenu disabled="${gestionusuarioBean.doc}" id="drop" value="#{gestionusuarioBean.usuarioRunt}" class="select2-dropdown form-control" style="width: auto">
+                                                                            <f:selectItem itemValue="0" itemLabel="No"  />
+                                                                            <f:selectItem itemValue="1" itemLabel="Si" />
+                                                                        </h:selectOneMenu> 
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-12">
+                                                            <div class="mensaje-info mensaje-div">
+                                                                <b>¡Atención!</b> La contraseña por defecto es el número de documento.
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:panelGroup>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-warning btn-submit right" value="Cancelar" onclick="$('#crearUsuario').modal('hide');">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.clearModalUsuario()}" render="btnPerfilar btnCrear"/>
+                                        </h:commandButton>
+                                        <h:commandButton id="btnCrear" class="btn btn-success btn-submit right" value="Crear" disabled="${gestionusuarioBean.btnCrearUsuario}">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.registrarUsuario()}" execute="frmConUsuario:drpSede frmConUsuario:drop frmConUsuario:cmbTipoDocumento frmConUsuario:cmbPerfil " render="frmConUsuario:btnPerfilar frmConUsuario:btnCrear frmConUsuario:cmbTipoDocumento frmConUsuario:txtDocumentoPersona frmConUsuario:cmbPerfil frmConUsuario:drpSede frmConUsuario:drop frmConUsuario:mensajePerfilar" />
+                                        </h:commandButton>
+                                        <h:commandButton id="btnPerfilar" class="btn btn-tumblr btn-submit right" value="Perfilar" disabled="${gestionusuarioBean.btnperfilar}">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.modal()}" render="frmConUsuario:pnlaccordion2"></f:ajax>
+
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!--Modal Detalle Recursos -->
+                        <div class="modal fade" id="detalleRecursos" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel2">Seleccione</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:panelGroup id="detalleRecu">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4>Detalle Recursos</h4>
+                                                </div> 
+                                                <div class="panel-body">
+                                                    <h:dataTable id="tbdeta" var="det" value="#{gestionusuarioBean.listDetalleRecursosbyRec}" class="dataTable table-hover table-bordered table-striped">
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Código"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:outputText value="#{det.codeDetalleRecurso}" />
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Nombre"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:outputText value="#{det.nombreDetalleRecurso}" />
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Tipo"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:outputText value="#{det.tipoDetalleRecurso}" />
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Asignar"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:selectBooleanCheckbox value="#{det.checkDetalleRecurso}">
+                                                                <f:ajax event="click" listener="${gestionusuarioBean.datosDetalleRecursos(det)}" render="frmConUsuario:btnAsignarDetalleRecursos2" execute="frmConUsuario:tbdeta" />
+                                                            </h:selectBooleanCheckbox>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </div>
+                                            </div>
+                                        </h:panelGroup>
+                                    </div>
+                                    <br/>
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-warning btn-submit right" value="Cancelar">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.clearModalDetalleRecurso()}"/>
+                                        </h:commandButton>
+                                        <h:commandButton id="btnAsignarDetalleRecursos2" class="btn btn-success btn-submit right" value="Asignar" disabled="${gestionusuarioBean.btnAsignarDetalleRecursos}">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.btnAsignarDetalleR()}"/>
+                                        </h:commandButton>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                        </div>
+
+                        <!--Modal Perfilar -->
+                        <div class="modal fade" id="perfilesEditar" style="overflow-y: scroll;" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" >
+                                <div class="modal-content" >
+                                    <div class="modal-header">
+                                        <div class="panel-heading">
+                                            <h3>Módulos y Recursos Autorizados</h3>
+                                        </div>
+                                    </div>
+                                    <p:messages closable="true" autoUpdate="true" id="msggeneral11" showDetail="true"/>
+
+                                    <div class="modal-body">
+
+                                        <h:panelGroup id="pnlaccordion2">
+                                            <legend>Datos Usuario</legend>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="col-lg-6">
+                                                        <h:outputLabel>Usuario</h:outputLabel>
+                                                        <h:inputText readonly="true" class="form-control success" id="txtUsuario4" value="#{gestionusuarioBean.nombreUsuarioPerfilar}"/>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h:outputLabel>Perfil Actual</h:outputLabel>
+                                                        <h:inputText readonly="true" class="form-control success" id="txtUsuario5" value="#{gestionusuarioBean.nombrePerfilUsuario}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br/><br/><br/><br/><br/>
+                                            <div class="panel-group" id="accordion2">
+                                                <legend>Recursos</legend>
+                                                <h:panelGrid id="alertaPerfilSeleccionado">
+                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoMensajePerfil}">
+                                                        <div class="mensaje-div mensaje-danger">
+                                                            El usuario no tiene ningún recurso seleccionado.
+                                                        </div>
+                                                    </h:panelGroup>
+                                                </h:panelGrid>
+                                                <c:forEach items="${gestionusuarioBean.listaModulos}" var="modulo">
+
+                                                    <div class="panel panel-default" >
+                                                        <h:panelGroup id="modalAccordio#{modulo.codeModuloCiv}">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title"> 
+                                                                    <a class="#{gestionusuarioBean.colorAccordion}" data-toggle="collapse" data-parent="#accordion2" href="#collaps#{modulo.codeModuloCiv}">#{modulo.nombreModulo}</a>
+                                                                    &nbsp;
+                                                                    <h:selectBooleanCheckbox value="#{gestionusuarioBean.firstcheckValue}">
+                                                                        <f:ajax event="click" listener="#{gestionusuarioBean.selectAllCombo(modulo)}" render="frmConUsuario:modalAccordio#{modulo.codeModuloCiv} frmConUsuario:btnAsignarRecursos frmConUsuario:alertaPerfilSeleccionado frmConUsuario:alertaMetodoPago2 tablaRecursos2#{modulo.codeModuloCiv}"></f:ajax> 
+                                                                    </h:selectBooleanCheckbox>
+                                                                </h4>
+                                                            </div>
+                                                        </h:panelGroup>
+                                                        <div id="collaps#{modulo.codeModuloCiv}" class="panel-collapse collapse">
+                                                            <div class="panel-body">
+                                                                <h:panelGrid id="alertaMetodoPago2">
+                                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoMensajeMetodoPago}">
+                                                                        <div class="mensaje-div mensaje-danger">
+                                                                            Debe seleccionar un método de pago y caja.
+                                                                            <h:commandLink class="mensaje-link " value="Seleccionar">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                                <f:ajax event="click" listener="#{gestionusuarioBean.listarMetodoPagoCaja('pagoycaja2')}" render="frmConUsuario:pagoCaja frmConUsuario:btnTipoPagoAsignar" />
+                                                                            </h:commandLink>
+                                                                        </div>
+                                                                    </h:panelGroup>
+                                                                </h:panelGrid>
+                                                                <h:panelGrid id="alertaCaja2">
+                                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoMensajeCaja}">
+                                                                        <div class="mensaje-div mensaje-danger">
+                                                                            Debe seleccionar una caja.
+                                                                            <h:commandLink class="mensaje-link " value="Seleccionar">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                                <f:ajax event="click" listener="#{gestionusuarioBean.listarMetodoPagoCaja('soloCaja2')}" render="frmConUsuario:pagoC frmConUsuario:btnPagosTipos" />
+                                                                            </h:commandLink>
+                                                                        </div>
+                                                                    </h:panelGroup>
+                                                                </h:panelGrid>
+                                                                <h:dataTable id="tablaRecursos2#{modulo.codeModuloCiv}" class="dataTable" var="listRecursos" value="0">
+
+                                                                    <h:column><f:facet name="header">Código</f:facet>
+                                                                        <c:forEach items="${gestionusuarioBean.listaRecursosPerfilUsuario}" var="codigoRecurso">
+                                                                            <c:if  test="#{modulo.codeModuloCiv  eq codigoRecurso.codeModulo}">
+                                                                                ${codigoRecurso.codeRecurso}<br/> <br/> 
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </h:column>
+
+                                                                    <h:column><f:facet name="header">Nombre del Recurso</f:facet>
+                                                                        <c:forEach items="${gestionusuarioBean.listaRecursosPerfilUsuario}" var="nombreRecurso">
+                                                                            <c:if  test="#{modulo.codeModuloCiv  eq nombreRecurso.codeModulo}">
+                                                                                ${nombreRecurso.nombreRecurso}<br/> <br/> 
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </h:column>
+
+                                                                    <h:column>
+                                                                        <f:facet name="header">
+                                                                            <h:outputLabel value="Habilitar"></h:outputLabel>
+                                                                        </f:facet>
+
+                                                                        <c:forEach items="${gestionusuarioBean.listaRecursosPerfilUsuario}" var="habilitarRecurso">
+                                                                            <c:if  test="#{modulo.codeModuloCiv  eq habilitarRecurso.codeModulo}">
+                                                                                <h:selectBooleanCheckbox value="#{gestionusuarioBean.checkValue}">
+                                                                                    <f:ajax event="click" listener="#{gestionusuarioBean.comprobarListas(habilitarRecurso)}"  execute="tablaRecursos2#{modulo.codeModuloCiv}" render="frmConUsuario:modalAccordio#{modulo.codeModuloCiv} frmConUsuario:alertaMetodoPago2 frmConUsuario:alertaCaja2 frmConUsuario:alertaPerfilSeleccionado frmConUsuario:btnAsignarRecursos"></f:ajax>
+                                                                                </h:selectBooleanCheckbox><br/><br/>  
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </h:column>
+
+                                                                    <h:column>
+                                                                        <f:facet name="header">Detalle Recurso</f:facet>
+                                                                        <c:forEach items="${gestionusuarioBean.listaRecursosPerfilUsuario}" var="perfilarRecurso">
+                                                                            <c:if  test="#{modulo.codeModuloCiv  eq perfilarRecurso.codeModulo}">
+                                                                                <h:outputText rendered="#{gestionusuarioBean.comprobarDetalleRecursos(perfilarRecurso.codeRecurso)}"></h:outputText> 
+                                                                                <h:panelGroup id="detRec2">
+                                                                                    <h:commandLink disabled="#{gestionusuarioBean.detalleRecurso}" class="fa fa-edit" >  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                                        <f:ajax event="click" listener="#{gestionusuarioBean.impListDetalleRecursosbyid(perfilarRecurso.codeRecurso, perfilarRecurso.codeModulo, 'perfilesEditar')}" render="frmConUsuario:detalleRecu" />
+                                                                                    </h:commandLink><br/> <br/>
+                                                                                </h:panelGroup>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </h:column>
+                                                                </h:dataTable> 
+                                                            </div>
+                                                        </div>
+                                                    </div>                    
+
+                                                </c:forEach>
+                                            </div>
+                                        </h:panelGroup>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-warning btn-submit right" value="Cancelar" onclick="$('#perfilesEditar').modal('hide');">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.clearModalPerfilar()}" render="frmConUsuario:btnAsignarRecursos"/>
+                                        </h:commandButton>
+                                        <h:commandButton id="btnAsignarRecursos" class="btn btn-success btn-submit right" value="Perfilar" disabled="${gestionusuarioBean.btnAsignarPerfil}">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.comprobarModal('perfilesEditar')}"/>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                        <!--Modal Actualizar Usuario -->
+                        <div class="modal fade" id="perfilesActualizarUsuario" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: scroll;">
+                            <div class="modal-dialog" >
+                                <div class="modal-content" >
+                                    <p:messages closable="true" autoUpdate="true" id="msggeneral13" showDetail="true"/>
+                                    <div class="modal-header">
+                                        <div class="panel-heading">
+                                            <h3><b>Actualizar Usuario</b></h3>
+                                        </div>
+                                    </div>
+                                    <div class="form-horizontal modal-body">
+
+                                        <h:panelGroup id="pnlaccordion3">
+                                            <legend>Datos Usuario</legend>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="col-lg-6">
+                                                        <h:outputLabel>Usuario</h:outputLabel>
+                                                        <h:inputText readonly="true" class="form-control success" id="txtUsuario6" value="#{gestionusuarioBean.nombreUsuarioPerfilar}"/>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h:outputLabel>Usuario Runt</h:outputLabel>
+                                                        <h:selectOneMenu value="#{gestionusuarioBean.usuarioRunt}" id="usuRunt" class="form-control dropdown" >
+                                                            <f:selectItem itemLabel="No" itemValue="0"></f:selectItem>
+                                                            <f:selectItem itemLabel="Si" itemValue="1"></f:selectItem>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-6">
+                                                        <h:outputLabel>Estado</h:outputLabel>
+                                                        <h:selectOneMenu title="#{gestionusuarioBean.titleEstado}" disabled="#{gestionusuarioBean.disableEstado}" value="#{gestionusuarioBean.codeEstado}" id="usuEstado" class="form-control dropdown">
+                                                            <f:selectItem itemLabel="Activo" itemValue="1"></f:selectItem>
+                                                            <f:selectItem itemLabel="Inactivo" itemValue="2"></f:selectItem>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h:outputLabel>
+                                                            Perfil
+                                                        </h:outputLabel>
+                                                        <h:selectOneMenu value="#{gestionusuarioBean.codePerfilSeleccionado}" id="cmbPerfil1"  class="form-control select2-dropdown">
+                                                            <f:selectItems value="#{gestionusuarioBean.listPerfil}"  var="perfilUsuario1"  itemValue="#{perfilUsuario1.codePerfil}" itemLabel="#{perfilUsuario1.nombrePerfil}" />
+                                                        </h:selectOneMenu>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-lg-6">
+                                                        <h:outputLabel>Persona</h:outputLabel>
+                                                        <h:inputText readonly="true" class="form-control success" id="txtpersona" value="#{gestionusuarioBean.nombrePersona}"/>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h:outputLabel>
+                                                            Recursos Asignados
+                                                        </h:outputLabel>
+                                                        <h:selectOneMenu readonly="true" value="#{gestionusuarioBean.codeRecurso}" id="cmbRecursos"  class="form-control select2-dropdown">
+                                                            <f:selectItems value="#{gestionusuarioBean.listRecursosSeleccionado}"  var="recursosUsuario"  itemValue="#{recursosUsuario.codeRecurso}" itemLabel="#{recursosUsuario.nombreRecurso}" />
+                                                        </h:selectOneMenu>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <legend>Autenticación</legend>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="col-lg-3">
+                                                        <h:inputText style="text-align: right;" id="contrasena" class="control-label form-control" readonly="true" value="#{gestionusuarioBean.passwordAleatorio}"></h:inputText>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <h:commandLink  class="btn btn-facebook ">
+                                                            <f:ajax listener="#{gestionusuarioBean.generarContrasena()}" render="contrasena" />
+                                                            Reestablecer Contraseña
+                                                        </h:commandLink>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <br/><br/><br/>
+                                            <div class="panel-group" id="accordion3">
+                                                <legend>Recursos</legend>
+                                                <h:panelGrid id="alertaPerfilSeleccion">
+                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoMensajePerfil}">
+                                                        <div class="mensaje-div mensaje-danger">
+                                                            El usuario no tiene ningún recurso seleccionado.
+                                                        </div>
+                                                    </h:panelGroup>
+                                                </h:panelGrid>
+                                                <c:forEach items="${gestionusuarioBean.listaModulos}" var="modulo">
+
+                                                    <div class="panel panel-default">
+
+                                                        <h:panelGroup id="modalAccordionn#{modulo.codeModuloCiv}">
+
+                                                            <div class="panel-heading">
+
+                                                                <h:panelGrid id="comprobarCheck">
+                                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoRenderActualizar}">
+                                                                        <h:outputText rendered="#{gestionusuarioBean.comprobarRecursosUsuariobyModulo(modulo)}" />
+                                                                    </h:panelGroup>
+                                                                </h:panelGrid>
+                                                                <h4 class="panel-title">
+                                                                    <a class="#{gestionusuarioBean.colorAccordion}" data-toggle="collapse" data-parent="#accordion3" href="#collap#{modulo.codeModuloCiv}">#{modulo.nombreModulo}</a>
+                                                                    &nbsp;
+                                                                    <h:selectBooleanCheckbox value="#{gestionusuarioBean.firstcheckValue}">
+                                                                        <f:ajax event="click" listener="#{gestionusuarioBean.selectAllCombo(modulo)}" render="frmConUsuario:modalAccordionn#{modulo.codeModuloCiv} frmConUsuario:accordionCajaUsuario frmConUsuario:accordionPagoCaja frmConUsuario:alertaMetodoPago frmConUsuario:alertaPerfilSeleccion frmConUsuario:btnActualizarRecursos frmConUsuario:alertaMetodoPago tablaRecursos#{modulo.codeModuloCiv}"></f:ajax> 
+                                                                    </h:selectBooleanCheckbox>
+                                                                </h4>
+
+                                                            </div>
+
+                                                        </h:panelGroup>
+
+                                                        <div id="collap#{modulo.codeModuloCiv}" class="panel-collapse collapse">
+                                                            <div class="panel-body">
+
+                                                                <h:panelGrid id="alertaMetodoPago">
+                                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoMensajeMetodoPago}">
+                                                                        <div class="mensaje-div mensaje-danger">
+                                                                            Debe seleccionar un método de pago y caja.
+                                                                            <h:commandLink class="mensaje-link " value="Seleccionar">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                                <f:ajax event="click" listener="#{gestionusuarioBean.listarMetodoPagoCaja('pagoycaja')}" render="frmConUsuario:pagoCaja frmConUsuario:btnTipoPagoAsignar" />
+                                                                            </h:commandLink>
+                                                                        </div>
+                                                                    </h:panelGroup>
+                                                                </h:panelGrid>
+                                                                <h:panelGrid id="alertaC">
+                                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoMensajeCaja}">
+                                                                        <div class="mensaje-div mensaje-danger">
+                                                                            Debe seleccionar una caja.
+                                                                            <h:commandLink class="mensaje-link " value="Seleccionar">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                                <f:ajax event="click" listener="#{gestionusuarioBean.listarMetodoPagoCaja('soloCaja')}" render="frmConUsuario:pagoC frmConUsuario:btnPagosTipos" />
+                                                                            </h:commandLink>
+                                                                        </div>
+                                                                    </h:panelGroup>
+                                                                </h:panelGrid>
+
+                                                                <p:messages id="alertaDetalleRecurso#{modulo.codeModuloCiv}" showDetail="true" closable="true"/>
+
+                                                                <h:dataTable id="tablaRecursos#{modulo.codeModuloCiv}" class="dataTable" var="listRecursos" value="0">
+
+                                                                    <h:column><f:facet name="header">Código</f:facet>
+                                                                        <c:forEach items="${gestionusuarioBean.listaRecursosPerfilUsuario}" var="for">
+                                                                            <c:if  test="#{modulo.codeModuloCiv  eq for.codeModulo}">
+                                                                                ${for.codeRecurso}<br/> <br/> 
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </h:column>
+
+                                                                    <h:column><f:facet name="header">Nombre del Recurso</f:facet>
+                                                                        <c:forEach items="${gestionusuarioBean.listaRecursosPerfilUsuario}" var="for">
+                                                                            <c:if  test="#{modulo.codeModuloCiv  eq for.codeModulo}">
+                                                                                ${for.nombreRecurso}<br/> <br/> 
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </h:column>
+
+                                                                    <h:column>
+                                                                        <f:facet name="header">
+                                                                            <h:outputLabel value="Habilitar"></h:outputLabel>
+                                                                        </f:facet>
+
+                                                                        <c:forEach items="${gestionusuarioBean.listaRecursosPerfilUsuario}" var="hab">
+                                                                            <c:if  test="#{modulo.codeModuloCiv  eq hab.codeModulo}" >
+                                                                                <h:outputText rendered="#{gestionusuarioBean.comprobarRecursosUsuario(hab.codeRecurso)}"></h:outputText>
+                                                                                <h:selectBooleanCheckbox id="check"  value="#{gestionusuarioBean.checkValue}">
+                                                                                    <f:ajax event="click" listener="#{gestionusuarioBean.comprobarListas(hab)}" render="frmConUsuario:modalAccordionn#{modulo.codeModuloCiv} frmConUsuario:accordionPagoCaja frmConUsuario:accordionCajaUsuario frmConUsuario:alertaMetodoPago frmConUsuario:alertaC frmConUsuario:alertaPerfilSeleccion frmConUsuario:btnActualizarRecursos"></f:ajax>
+                                                                                </h:selectBooleanCheckbox><br/> <br/>
+                                                                            </c:if>
+                                                                        </c:forEach>
+
+                                                                    </h:column>
+                                                                    <h:column>
+                                                                        <f:facet name="header">Detalle Recursos</f:facet>
+                                                                        <c:forEach items="${gestionusuarioBean.listaRecursosPerfilUsuario}" var="for">
+                                                                            <c:if  test="#{modulo.codeModuloCiv  eq for.codeModulo}">
+                                                                                <h:outputText rendered="#{gestionusuarioBean.comprobarDetalleRecursos(for.codeRecurso)}"></h:outputText> 
+                                                                                <h:panelGroup id="detRec">
+                                                                                    <h:commandLink disabled="#{gestionusuarioBean.detalleRecurso}" class="fa fa-edit ">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                                        <f:ajax event="click" listener="#{gestionusuarioBean.impListDetalleRecursosbyid(for.codeRecurso, for.codeModulo, 'perfilesActualizarUsuario')}" render="frmConUsuario:detalleRecu" />
+                                                                                    </h:commandLink> <br/> <br/>  
+                                                                                </h:panelGroup>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </h:column>
+
+                                                                </h:dataTable> 
+                                                            </div>
+                                                        </div>
+                                                    </div>                    
+
+                                                </c:forEach>
+                                            </div>
+                                            <div class="panel-group" id="accordionP">
+                                                <h:panelGrid id="accordionCajaUsuario">
+                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoRenderActualizarCheckCaja}">
+                                                        <legend>Cajas</legend>
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                    <a data-toggle="collapse" data-parent="#accordionCajaUsuario" href="#cajaAct">Cajas</a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="cajaAct" class="panel-collapse collapse">
+                                                                <div class="panel-body">
+                                                                    <h:panelGrid id="alertaVaciaC">
+                                                                        <h:panelGroup  rendered="#{gestionusuarioBean.mensajeC}">
+                                                                            <div class="mensaje-div mensaje-danger">
+                                                                                Sí desea desactivar caja, debe deshabilitar los recursos <b>Liquidación y Factura </b>
+                                                                                y/o <b>Consultar Pago</b> en el módulo de <b>Liquidaciones</b>.
+                                                                            </div>
+                                                                        </h:panelGroup>
+                                                                    </h:panelGrid>
+                                                                    <h:dataTable id="tableList" class="dataTable table-bordered table-hover" var="cajas" value="${gestionusuarioBean.listCajas}">
+
+                                                                        <h:column><f:facet name="header">Código Caja</f:facet>
+                                                                                ${cajas.codeCaja}
+                                                                        </h:column>
+
+                                                                        <h:column><f:facet name="header">Nombre de la caja</f:facet>
+                                                                                ${cajas.nombreCaja}
+                                                                        </h:column>
+
+                                                                        <h:column>
+                                                                            <f:facet name="header">
+                                                                                <h:outputLabel value="Habilitar"></h:outputLabel>
+                                                                            </f:facet>
+                                                                            <h:selectBooleanCheckbox id="check"  value="#{cajas.checkValueCaja}" disabled="#{cajas.edcheckcaja}">
+                                                                                <f:ajax event="click" listener="#{gestionusuarioBean.actualizarListaCajas(cajas)}" render="frmConUsuario:tableList frmConUsuario:alertaVaciaC frmConUsuario:alertaMetodoPago frmConUsuario:alertaC frmConUsuario:alertaPerfilSeleccion frmConUsuario:btnActualizarRecursos"></f:ajax>
+                                                                            </h:selectBooleanCheckbox> 
+
+                                                                        </h:column>
+
+                                                                    </h:dataTable> 
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </h:panelGroup>
+                                                </h:panelGrid>
+                                                <h:panelGrid id="accordionPagoCaja">
+                                                    <h:panelGroup  rendered="#{gestionusuarioBean.estadoRenderActualizarCheck}">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+
+                                                                    <a data-toggle="collapse" data-parent="#accordionPagoCaja" href="#PagoAct">Tipo Pago</a>
+                                                                </h4>
+                                                            </div>
+
+                                                            <div id="PagoAct" class="panel-collapse collapse">
+                                                                <div class="panel-body">
+                                                                    <h:panelGrid id="alertaVaciaP">
+                                                                        <h:panelGroup  rendered="#{gestionusuarioBean.mensajeTP}">
+                                                                            <div class="mensaje-div mensaje-danger">
+                                                                                Sí desea desactivar todas los tipos de pago, debe deshabilitar los recursos <b>Liquidación y Factura </b>
+                                                                                y/o <b>Consultar Pago</b> en el módulo de <b>Liquidaciones</b>.
+                                                                            </div>
+                                                                        </h:panelGroup>
+                                                                    </h:panelGrid>
+                                                                    <h:dataTable id="dsffsd" class="dataTable table-bordered table-hover" var="pagos" value="${gestionusuarioBean.listMetodoPago}">
+
+                                                                        <h:column><f:facet name="header">Código</f:facet>
+                                                                                ${pagos.codeTipoPago}
+                                                                        </h:column>
+
+                                                                        <h:column><f:facet name="header">Nombre</f:facet>
+                                                                                ${pagos.nombreTipoPago}
+                                                                        </h:column>
+
+                                                                        <h:column>
+                                                                            <f:facet name="header">
+                                                                                <h:outputLabel value="Habilitar"></h:outputLabel>
+                                                                            </f:facet>
+                                                                            <h:selectBooleanCheckbox id="check2"  value="#{pagos.checkValueTipoPago}" >
+                                                                                <f:ajax event="click" listener="#{gestionusuarioBean.actualizarListaPagos(pagos)}" render="frmConUsuario:alertaVaciaP frmConUsuario:alertaMetodoPago frmConUsuario:alertaC frmConUsuario:alertaPerfilSeleccion frmConUsuario:btnActualizarRecursos"></f:ajax>
+                                                                            </h:selectBooleanCheckbox> 
+                                                                        </h:column>
+
+                                                                    </h:dataTable> 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </h:panelGroup>
+                                                </h:panelGrid>
+                                            </div>
+
+                                            <h:panelGrid id="dtr">
+                                                <h:panelGroup  rendered="#{gestionusuarioBean.estadoDR}">
+                                                    <div class="panel-group" id="accordion7">
+                                                        <legend>Detalle Recursos</legend>
+                                                        <c:forEach items="${gestionusuarioBean.detalleRbyRecurso1.entrySet()}" var="recurso">
+
+                                                            <div class="panel panel-default">
+                                                                <h:panelGroup id="dr">
+
+                                                                    <div class="panel-heading">
+                                                                        <h4 class="panel-title">
+                                                                            <a class="text-black" data-toggle="collapse" data-parent="#accordion7" href="#detalle#{recurso.key}">
+                                                                                <f:ajax event="click" listener="#{gestionusuarioBean.detalleRecurso(recurso.key)}" render="frmConUsuario:tbdetall#{recurso.key}" ></f:ajax>
+                                                                                    #{recurso.value}
+                                                                            </a>
+                                                                        </h4>
+
+                                                                    </div>
+
+                                                                </h:panelGroup>
+
+                                                                <div id="detalle#{recurso.key}" class="panel-collapse collapse">
+                                                                    <div class="panel-body">
+
+                                                                        <h:dataTable id="tbdetall#{recurso.key}" var="det" value="#{gestionusuarioBean.listDetalleRecursosbyRec}" class="dataTable table-bordered table-hover">
+                                                                            <h:column>
+                                                                                <f:facet name="header">
+                                                                                    <h:outputLabel value="Código"></h:outputLabel>
+                                                                                </f:facet>
+                                                                                <h:outputText value="#{det.codeDetalleRecurso}" />
+                                                                            </h:column>
+                                                                            <h:column>
+                                                                                <f:facet name="header">
+                                                                                    <h:outputLabel value="Nombre"></h:outputLabel>
+                                                                                </f:facet>
+                                                                                <h:outputText value="#{det.nombreDetalleRecurso}" />
+                                                                            </h:column>
+                                                                            <h:column>
+                                                                                <f:facet name="header">
+                                                                                    <h:outputLabel value="Tipo"></h:outputLabel>
+                                                                                </f:facet>
+                                                                                <h:outputText value="#{det.tipoDetalleRecurso}" />
+                                                                            </h:column>
+                                                                            <h:column>
+                                                                                <f:facet name="header">
+                                                                                    <h:outputLabel value="Asignar"></h:outputLabel>
+                                                                                </f:facet>
+                                                                                <h:outputText rendered="#{gestionusuarioBean.checkDetalleRecurso(det)}"/>
+                                                                                <h:selectBooleanCheckbox value="#{det.checkDetalleRecursoAct}">
+                                                                                    <f:ajax event="click" listener="${gestionusuarioBean.actDetalleRecursos(det)}" render="frmConUsuario:btnAsignarDetalleRecursos2" execute="frmConUsuario:tbdetall" />
+                                                                                </h:selectBooleanCheckbox>
+                                                                            </h:column>
+                                                                        </h:dataTable>
+                                                                    </div>
+                                                                </div>
+                                                            </div>                    
+                                                        </c:forEach>
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </h:panelGrid>
+
+
+
+                                        </h:panelGroup>
+
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-warning btn-submit right" value="Cancelar" onclick="$('#perfilesActualizarUsuario').modal('hide');">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.clearModalactualizar()}"/>
+                                        </h:commandButton>
+                                        <h:commandButton id="btnActualizarRecursos" class="btn btn-success btn-submit right" value="Actualizar" disabled="${gestionusuarioBean.btnAsignarPerfil}">
+                                            <f:ajax event="click" listener="#{gestionusuarioBean.actualizarUsuario()}" execute="frmConUsuario:usuRunt frmConUsuario:usuEstado frmConUsuario:cmbPerfil1"/>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                        <!-- Modal seleccionar método de pago y caja -->
+                        <div class="modal fade" id="cajaypago" style="overflow-y: scroll;" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <h4 class="modal-title" id="myModalLabel2">Seleccione caja y tipos de pagos a asignar</h4>
+                                        <br/>
+                                        <h:panelGrid id="alertaSeleccionPagoCaja">
+                                            <h:panelGroup  rendered="#{gestionusuarioBean.estadoMensajeSeleccionPago}">
+                                                <div class="col-lg-12">
+                                                    <div class="mensaje-div mensaje-danger">
+                                                        <b>¡Atención!</b> Debe seleccionar por lo menos un tipo de pago y una caja.
+                                                    </div>
+                                                </div>
+                                            </h:panelGroup>
+                                        </h:panelGrid>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:panelGroup id="pagoCaja">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4>Cajas</h4>
+                                                </div> 
+                                                <div class="panel-body">
+                                                    <h:dataTable id="tbCaje" var="ListaCajas" value="#{gestionusuarioBean.listCajas}" class="dataTable table-striped table-hover table-bordered">
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Código"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:outputText value="#{ListaCajas.codeCaja}" />
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Nombre"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:outputText value="#{ListaCajas.nombreCaja}" />
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Asignar"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:selectBooleanCheckbox value="#{ListaCajas.checkValueCaja}" disabled="#{ListaCajas.edcheckcaja}">
+                                                                <f:ajax event="click" listener="${gestionusuarioBean.datosCajas(ListaCajas, 'cajaypago')}" render="frmConUsuario:tbCaje frmConUsuario:btnTipoPagoAsignar frmConUsuario:alertaSeleccionPagoCaja" execute="frmConUsuario:pagoCaja" />
+                                                            </h:selectBooleanCheckbox>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4>Tipos de pago</h4>
+                                                </div> 
+                                                <div class="panel-body">
+                                                    <h:dataTable id="tbPay" var="pag" value="#{gestionusuarioBean.listMetodoPago}" class="dataTable table-striped table-hover table-bordered">
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Código"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:outputText value="#{pag.codeTipoPago}" />
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Nombre"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:outputText value="#{pag.nombreTipoPago}" />
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputLabel value="Asignar"></h:outputLabel>
+                                                            </f:facet>
+                                                            <h:selectBooleanCheckbox value="#{pag.checkValueTipoPago}">
+                                                                <f:ajax event="click" listener="${gestionusuarioBean.datosMetodoPago(pag)}" render="frmConUsuario:btnTipoPagoAsignar frmConUsuario:alertaSeleccionPagoCaja" execute="frmConUsuario:tbPay" />
+                                                            </h:selectBooleanCheckbox>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </div>
+                                            </div>
+                                        </h:panelGroup>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-warning" value="Cancelar">
+                                            <f:ajax event="click" listener="${gestionusuarioBean.limpiarPagoCaja()}"/>
+                                        </h:commandButton>
+                                        <h:commandButton id="btnTipoPagoAsignar" class="btn btn-success btn-submit right" value="Asignar" disabled="${gestionusuarioBean.btnAsignarMetodoPago}">
+                                            <f:ajax event="click" listener="${gestionusuarioBean.btnAsignarCajasPagos()}" render="frmConUsuario:alertaMetodoPago2 frmConUsuario:btnAsignarRecursos frmConUsuario:alertaMetodoPago frmConUsuario:btnActualizarRecursos"/>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                        <!-- Modal Seleccionar caja -->
+                        <div class="modal fade" id="seleccionC" style="overflow-y: scroll;" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Seleccione una caja</h4>
+                                        <br/>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:panelGroup id="pagoC">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4>Cajas</h4>
+                                                </div> 
+                                                <div class="panel-body">
+                                                    <h:panelGrid id="alertaSeleccionCaja3">
+                                                        <h:panelGroup  rendered="#{gestionusuarioBean.estadoMensajeSeleccionPago}">
+                                                            <div class="col-lg-12">
+                                                                <div class="mensaje-div mensaje-danger">
+                                                                    <b>¡Atención!</b> Debe seleccionar una caja.
+                                                                </div>
+                                                            </div>
+                                                        </h:panelGroup>
+                                                    </h:panelGrid>
+                                                    <div class="col-lg-12 table-responsive">
+                                                        <h:dataTable id="tbC" var="CajaAct" value="#{gestionusuarioBean.listCajas}" class="dataTable table-bordered table-hover">
+                                                            <h:outputText rendered="#{gestionusuarioBean.deshabilitarCheck(CajaAct)}"/>
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Código"></h:outputLabel>
+                                                                </f:facet>
+                                                                <h:outputText value="#{CajaAct.codeCaja}" />
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Nombre"></h:outputLabel>
+                                                                </f:facet>
+                                                                <h:outputText value="#{CajaAct.nombreCaja}" />
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Asignar"></h:outputLabel>
+                                                                </f:facet>
+                                                                <h:selectBooleanCheckbox value="#{CajaAct.checkValueCaja}" disabled="#{CajaAct.edcheckcaja}">
+                                                                    <f:ajax event="click" listener="${gestionusuarioBean.datosCajas(CajaAct, 'caja')}" render="frmConUsuario:tbC frmConUsuario:btnPagosTipos frmConUsuario:alertaSeleccionCaja3" execute="frmConUsuario:pagoC" />
+                                                                </h:selectBooleanCheckbox>
+                                                            </h:column>
+                                                        </h:dataTable>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </h:panelGroup>
+                                    </div>
+
+                                    <br/>
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-warning" value="Cancelar">
+                                            <f:ajax event="click" listener="${gestionusuarioBean.limpiarCaja()}"/>
+                                        </h:commandButton>
+
+                                        <h:commandButton id="btnPagosTipos" class="btn btn-success btn-submit right" value="Asignar" disabled="${gestionusuarioBean.btnAsignarMetodoPago}">
+                                            <f:ajax event="click" listener="${gestionusuarioBean.btnAsignarCajas()}" render="frmConUsuario:alertaCaja2 frmConUsuario:btnAsignarRecursos frmConUsuario:alertaC frmConUsuario:btnActualizarRecursos"/>
+                                        </h:commandButton>
+                                    </div>
+
+                                </div>
+                                <!-- /.modal-content -->
+
+
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                        <!-- Modal Confirmacion Perfilar-->
+                        <div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Usted ha seleccionado recursos que contienen detalles recursos, ¿Desea asignarle todos los detalle recursos?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandLink class="btn btn-default"  value="No">
+                                            <f:ajax listener="#{gestionusuarioBean.NOConfirmacion()}" />
+                                        </h:commandLink>
+                                        <h:commandLink class="btn btn-dropbox"  value="Si" onclick="$('#modalConfirmacion').modal('hide');">
+                                            <f:ajax listener="#{gestionusuarioBean.confirmacionModal()}" />
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                    </h:form>
+
+                </c:if>
+                <c:if  test="#{val eq false}">
+                    <script>
+                        document.location.href = 'index2.html';
+                    </script>
+                </c:if>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

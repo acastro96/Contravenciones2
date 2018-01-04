@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivCajas" table="CIV_CAJAS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacena las cajas usadas en el modulo de liquidacion en el sistema.</comment>
+        <id name="cajId" type="big_decimal">
+            <column name="CAJ_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="cajNombre" type="string">
+            <column name="CAJ_NOMBRE">
+                <comment>Nombre de la caja</comment>
+            </column>
+        </property>
+        <property name="sedId" type="big_decimal">
+            <column name="SED_ID" precision="22" scale="0">
+                <comment>Sede donde se encuentra la caja</comment>
+            </column>
+        </property>
+        <property name="cajFechaInicio" type="date">
+            <column name="CAJ_FECHA_INICIO" length="7">
+                <comment>Fecha inicio del registro</comment>
+            </column>
+        </property>
+        <property name="cajFechaFin" type="date">
+            <column name="CAJ_FECHA_FIN" length="7">
+                <comment>Fecha fin del registro</comment>
+            </column>
+        </property>
+        <property name="cajEstado" type="big_decimal">
+            <column name="CAJ_ESTADO" precision="22" scale="0">
+                <comment>Estado del registro</comment>
+            </column>
+        </property>
+        <set name="civUsuarioCajases" table="CIV_USUARIO_CAJAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CAJ_ID" precision="22" scale="0" not-null="true">
+                    <comment>ID de caja</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUsuarioCajas" />
+        </set>
+    </class>
+</hibernate-mapping>

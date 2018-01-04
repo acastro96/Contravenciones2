@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivUspHistoria" table="CIV_USP_HISTORIA" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan el historial de credenciales de cada usuario en el sistema.</comment>
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0">
+                <comment>ID de usuario</comment>
+            </column>
+        </many-to-one>
+        <property name="PData" type="string">
+            <column name="P_DATA" length="130">
+                <comment>Hash</comment>
+            </column>
+        </property>
+        <property name="fechaProceso" type="date">
+            <column name="FECHA_PROCESO" length="7">
+                <comment>Fecha del sistema</comment>
+            </column>
+        </property>
+        <property name="estado" type="big_decimal">
+            <column name="ESTADO" precision="22" scale="0">
+                <comment>Estado del registro</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

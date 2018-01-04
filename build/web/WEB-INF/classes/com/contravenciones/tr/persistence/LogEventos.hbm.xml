@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.LogEventos" table="LOG_EVENTOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los diferentes eventos del sistema</comment>
+        <id name="evId" type="big_decimal">
+            <column name="EV_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0">
+                <comment>ID unico de Usuario</comment>
+            </column>
+        </property>
+        <property name="evIp" type="string">
+            <column name="EV_IP" length="60">
+                <comment>IP Origen</comment>
+            </column>
+        </property>
+        <property name="evNivel" type="big_decimal">
+            <column name="EV_NIVEL" precision="22" scale="0">
+                <comment>Nivel de evento</comment>
+            </column>
+        </property>
+        <property name="evFecha" type="date">
+            <column name="EV_FECHA" length="7">
+                <comment>Fecha y hora del evento</comment>
+            </column>
+        </property>
+        <property name="evExcpetion" type="string">
+            <column name="EV_EXCPETION" length="200">
+                <comment>Tipo de Excepcion</comment>
+            </column>
+        </property>
+        <property name="evMensaje" type="string">
+            <column name="EV_MENSAJE" length="1000">
+                <comment>Mensaje de error</comment>
+            </column>
+        </property>
+        <property name="evCausa" type="string">
+            <column name="EV_CAUSA" length="1000">
+                <comment>Causa de la Excepcion</comment>
+            </column>
+        </property>
+        <property name="evClaseOrigen" type="string">
+            <column name="EV_CLASE_ORIGEN" length="200">
+                <comment>Clase origen del error</comment>
+            </column>
+        </property>
+        <property name="evStacktrace" type="string">
+            <column name="EV_STACKTRACE" length="4000">
+                <comment>Stack del error</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

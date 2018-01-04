@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivAttempts" table="CIV_ATTEMPTS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los los intentos de inicio de sesion de usuarios de sistema. En esta tabla se realizan los bloqueos de las cuentas de
+        usuario.</comment>
+        <id name="ttpId" type="big_decimal">
+            <column name="TTP_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true">
+                <comment>ID unico de usuario</comment>
+            </column>
+        </many-to-one>
+        <property name="ttpIntentos" type="long">
+            <column name="TTP_INTENTOS" precision="10" scale="0" not-null="true">
+                <comment>Numero de Intentos</comment>
+            </column>
+        </property>
+        <property name="ttpUltimoIntento" type="date">
+            <column name="TTP_ULTIMO_INTENTO" length="7" not-null="true">
+                <comment>Fecha y hora de ultimo acceso</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

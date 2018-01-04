@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivUsuperfil" table="CIV_USUPERFIL" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan las relaciones entre los usuarios y sus perfiles. Ver CIV_PERFILES</comment>
+        <id name="usuperId" type="big_decimal">
+            <column name="USUPER_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true">
+                <comment>ID de usuario</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civPerfiles" class="com.contravenciones.tr.persistence.CivPerfiles" fetch="select">
+            <column name="PERF_ID" precision="22" scale="0" not-null="true">
+                <comment>ID del perfil de usuario</comment>
+            </column>
+        </many-to-one>
+        <property name="usuperFechaini" type="date">
+            <column name="USUPER_FECHAINI" length="7">
+                <comment>Fecha inicial del registro</comment>
+            </column>
+        </property>
+        <property name="usuperFechafin" type="date">
+            <column name="USUPER_FECHAFIN" length="7">
+                <comment>Fecha final del registro</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

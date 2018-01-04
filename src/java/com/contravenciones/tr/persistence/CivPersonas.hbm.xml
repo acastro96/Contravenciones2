@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivPersonas" table="CIV_PERSONAS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="perId" type="big_decimal">
+            <column name="PER_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="perTipodocumento" type="big_decimal">
+            <column name="PER_TIPODOCUMENTO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="perDocumento" type="string">
+            <column name="PER_DOCUMENTO" not-null="true" />
+        </property>
+        <property name="perFechanac" type="date">
+            <column name="PER_FECHANAC" length="7" />
+        </property>
+        <property name="perGruposanguineo" type="string">
+            <column name="PER_GRUPOSANGUINEO" length="2" />
+        </property>
+        <property name="perRh" type="string">
+            <column name="PER_RH" length="3" />
+        </property>
+        <property name="perSexo" type="string">
+            <column name="PER_SEXO" length="1" />
+        </property>
+        <property name="perNombre1" type="string">
+            <column name="PER_NOMBRE1" length="200" not-null="true" />
+        </property>
+        <property name="perNombre2" type="string">
+            <column name="PER_NOMBRE2" length="200" />
+        </property>
+        <property name="perApellido1" type="string">
+            <column name="PER_APELLIDO1" length="200" not-null="true" />
+        </property>
+        <property name="perApellido2" type="string">
+            <column name="PER_APELLIDO2" length="200" />
+        </property>
+        <property name="perEmail" type="string">
+            <column name="PER_EMAIL" length="200" />
+        </property>
+        <property name="perCelular" type="string">
+            <column name="PER_CELULAR" length="200" />
+        </property>
+        <property name="perLugarnacimiento" type="big_decimal">
+            <column name="PER_LUGARNACIMIENTO" precision="22" scale="0" />
+        </property>
+        <property name="perFechaexp" type="date">
+            <column name="PER_FECHAEXP" length="7" />
+        </property>
+        <property name="perEstado" type="big_decimal">
+            <column name="PER_ESTADO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="perFechainicial" type="date">
+            <column name="PER_FECHAINICIAL" length="7" />
+        </property>
+        <property name="perFechafinal" type="date">
+            <column name="PER_FECHAFINAL" length="7" />
+        </property>
+        <property name="perFechaproceso" type="date">
+            <column name="PER_FECHAPROCESO" length="7" />
+        </property>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0" />
+        </property>
+        <property name="perLugarexpedicion" type="big_decimal">
+            <column name="PER_LUGAREXPEDICION" precision="22" scale="0" />
+        </property>
+        <set name="civDireccioneses" table="CIV_DIRECCIONES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PER_ID" precision="22" scale="0">
+                    <comment>Fk de la taabla civ_personas</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDirecciones" />
+        </set>
+        <set name="civUsuarioses" table="CIV_USUARIOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PER_ID" precision="22" scale="0">
+                    <comment>ID unico de persona</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUsuarios" />
+        </set>
+    </class>
+</hibernate-mapping>

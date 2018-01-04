@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./plantillas/bucketAdmin/plantillaGeneral.xhtml">
+
+            <ui:define name="content">
+
+                <section id="main-content">
+                    <section class="wrapper">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8">
+                                        <!--widget start-->
+                                        <aside class="profile-nav alt">
+                                            <section class="panel">
+                                                <div class="user-heading alt gray-bg">
+
+                                                    <img class="profile-user-img img-responsive img-circle" src="#{request.contextPath}#{loginBean.root}" alt="User profile picture"/>
+
+                                                    <h1>#{loginBean.nombrePersonaUsuario}</h1>
+                                                    <p>#{loginBean.nombre}</p>
+                                                </div>
+
+                                                <ul class="nav nav-pills nav-stacked">
+                                                    <li><a href="javascript:;"> <i class="fa fa-user"></i> Identificación: #{loginBean.cedulaPersonaUsuario}</a></li>
+                                                    <li><a href="javascript:;"> <i class="fa fa-calendar"></i> Fecha de Registro: #{loginBean.fechaInicioPersonaUsuario}</a></li>
+                                                    <li><h:link outcome="restaurarPassword"><i class="fa fa-cogs"></i> Cambiar Contraseña</h:link></li>
+                                                </ul>
+
+                                            </section>
+                                        </aside>
+                                        <!--widget end-->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+    <schema-selection match-schema="CONTRAVENCIONES"/>
+    <table-filter match-name="CIV_PERSONAS"/>
+    <table-filter match-name="CIV_USUARIOS"/>
+    <table-filter match-name="CIV_MODULOS"/>
+    <table-filter match-name="CIV_DETALLE_RECURSOS"/>
+    <table-filter match-name="CIV_DETALLE_REC_USU"/>
+    <table-filter match-name="CIV_DIRECCIONES"/>
+    <table-filter match-name="CIV_DIVIPOS"/>
+    <table-filter match-name="CIV_MUNICIPIOS"/>
+    <table-filter match-name="CIV_DEPARTAMENTOS"/>
+    <table-filter match-name="CIV_RECURSOS"/>
+    <table-filter match-name="CIV_PERFILRECURSO"/>
+    <table-filter match-name="CIV_PERFILES"/>
+    <table-filter match-name="CIV_USUPERFIL"/>
+    <table-filter match-name="CIV_USP_HISTORIA"/>
+    <table-filter match-name="CIV_SEDES"/>
+    <table-filter match-name="CIV_POBLADOS"/>
+    <table-filter match-name="CIV_PAIS"/>
+    <table-filter match-name="CIV_GRUPOS"/>
+    <table-filter match-name="CIV_PARAMETROS"/>
+    <table-filter match-name="CIV_CAJAS"/>
+    <table-filter match-name="CIV_ORGANISMOS"/>
+    <table-filter match-name="CIV_USUARIO_CAJAS"/>
+    <table-filter match-name="CIV_ATTEMPTS"/>
+    <table-filter match-name="CIV_ERRORES"/>
+    <table-filter match-name="LOG_EVENTOS"/>
+    <table-filter match-name="CIV_HISTORIAL_PERFIL_RECURSO"/>
+    <table-filter match-name="CIV_HISTORIAL_USUARIO_CAJA"/>
+    <table-filter match-name="CIV_USUARIOS_CAJAS_TIPOPAGOS"/>
+</hibernate-reverse-engineering>

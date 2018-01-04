@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link rel="shortcut icon" href="#{request.contextPath}/resources/images/favicon.png" type="image/x-icon"/>
+        <link rel="icon" href="#{request.contextPath}/resources/images/favicon.png" type="image/x-icon"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Bootstrap 3.3.5 -->
+        <link rel="stylesheet" href="#{request.contextPath}/resources/css/bootstrap.min.css" />
+        <title>Civitrans</title>
+        <style type="text/css">
+            html {
+                position: relative;
+                min-height: 100%;
+            }
+            body {
+                /* Margin bottom by footer height */
+                margin-bottom: 60px;
+            }
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                /* Set the fixed height of the footer here */
+                height: 60px;
+                background-color: #f5f5f5;
+            }
+            /* Custom page CSS
+            -------------------------------------------------- */
+            /* Not required for template or sticky footer method. */
+            .container .text-muted {
+                margin: 20px 0;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <p:ajaxStatus onstart="PF('statusDialog').show()"  onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+            <p:graphicImage url="/resources/images/loading.gif" style="width: 25px;"/> Iniciando Sesión...
+        </p:dialog>
+        <div class="container">
+            <div class="row">
+                <center>
+                    <img src="#{request.contextPath}/resources/images/logo.png" class="visible-lg" style="margin-top: 100px; margin-left: 90px; width: 400px; height: 120px;" align="middle"/>
+                    <img src="#{request.contextPath}/resources/images/logo.png" class="visible-xs" style="margin-top: 60px; width: 280px; height: 92px" align="middle"/>
+                    <img src="#{request.contextPath}/resources/images/logo.png" class="visible-sm" style="margin-top: 60px; width: 590px; height: 180px" align="middle"/>
+                    <img src="#{request.contextPath}/resources/images/logo.png" class="visible-md" style="margin-top: 60px; width: 280px; height: 92px" align="middle"/>
+                    <br></br>
+                    <small>Aplicación para los procesos misionales del Tránsito</small>
+                </center>
+            </div>
+
+            <div class="row">
+                &nbsp;
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <center><h3>Inicio de Sesión</h3><hr/></center>
+
+                    <h:form class="form-signin" id="loginFrm">
+                        <div class="form-group">
+                            <div class="form-group has-feedback left-inner-addon">
+                                <p:watermark for="txtuser" value="USUARIO" id="watermark1" />
+                                <!--Nombre de Usuario de tipo String - No se aceptan caracteres especiales-->
+                                <h:inputText  autocomplete="false" class="form-control" id="txtuser_" style="display: none"/>
+                                <h:inputText value="#{loginBean.user}" style="text-transform: uppercase" requiredMessage="Por favor ingrese su nombre de usuario." autocomplete="false" class="form-control" id="txtuser" required="true" maxlength="20">
+                                    
+                                </h:inputText><!--VALUE OK-->
+                                <i class="form-control-feedback glyphicon glyphicon-user pull-left"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group has-feedback left-inner-addon">
+                                <p:watermark for="txtpass" value="PASSWORD" id="watermark2" />
+                                <input type="password" name="password_fake" id="password_fake" value="" style="display:none;" />
+                                <h:inputSecret autocomplete="false" id="txtpass_" class="form-control" style="display: none"/>
+                                <h:inputSecret value="#{loginBean.password}" validatorMessage="Formato de contraseña inválida. No se permiten carácteres especiales." requiredMessage="Por favor ingrese su contraseña." autocomplete="false" id="txtpass" class="form-control" required="true" maxlength="20">
+                                    
+                                </h:inputSecret>
+                                <!--VALUE OK-->
+                                <i class="form-control-feedback glyphicon glyphicon-lock"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <center>
+                                <h:commandButton action="#{loginBean.autenticarUsuario}" class="btn btn-primary btn-submit right" value="Iniciar Sesión"/>
+                            </center>
+                        </div>
+                        <div id="respuesta"  name="respuesta"></div>
+                        
+                        <div class="form-group">
+                            <center>
+                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                            </center>
+                        </div>
+                    </h:form><!-- /form -->
+                </div>
+
+            </div>
+
+        </div>
+        <footer class="footer">
+            <p align="center" class="text-muted"> &copy; La Civica Impresores SAS</p>
+        </footer>
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+        <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+        <!-- Bootstrap 3.3.5 -->
+        <script src="#{request.contextPath}/resources/js/bootstrap.min.js"></script>
+        <script src="#{request.contextPath}/resources/js/paste.js"></script>
+
+    </h:body>
+</html>
+

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivModulos" table="CIV_MODULOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los diferentes modulos accesibles desde de sistema</comment>
+        <id name="modId" type="big_decimal">
+            <column name="MOD_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="modNombre" type="string">
+            <column name="MOD_NOMBRE" length="200">
+                <comment>Nombre de modulo</comment>
+            </column>
+        </property>
+        <property name="modFechaini" type="date">
+            <column name="MOD_FECHAINI" length="7">
+                <comment>Fecha de ingreso de registro</comment>
+            </column>
+        </property>
+        <property name="modFechafin" type="date">
+            <column name="MOD_FECHAFIN" length="7">
+                <comment>Fecha de fin de registro</comment>
+            </column>
+        </property>
+        <property name="modEstado" type="big_decimal">
+            <column name="MOD_ESTADO" precision="22" scale="0">
+                <comment>Estado del registro</comment>
+            </column>
+        </property>
+        <property name="icon" type="string">
+            <column name="ICON" length="100">
+                <comment>Referencia a icono de Fontawesome que aparece en el menu</comment>
+            </column>
+        </property>
+        <set name="civRecursoses" table="CIV_RECURSOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MOD_ID" precision="22" scale="0">
+                    <comment>ID de modulo</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivRecursos" />
+        </set>
+    </class>
+</hibernate-mapping>

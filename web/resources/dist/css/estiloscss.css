@@ -1,0 +1,78 @@
+/*
+La C�vica Impresores S.A.S
+Copyright 2016 
+*/
+/* 
+    Created on : 6/12/2017, 09:12:46 AM
+    Author     : Rcamacho
+*/
+
+
+.mensaje-info {
+    color: #31708f;
+    background-color: #d9edf7 !important;
+    border-color: #bce8f1;
+}
+
+.mensaje-div {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.mensaje-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+.mensaje-danger .mensaje-link {
+    color: #843534;
+}
+.mensaje-div .mensaje-link {
+    font-weight: 700;
+}
+
+.mensaje-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.boton {
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid transparent;
+}
+
+.boton-danger {
+    color: #fff;
+    background-color: #af3838;
+    border-color: rgba(0,0,0,0.2);
+}
+
+.cerrar-alerta {
+    padding-right: 35px;
+}
+
+.borde-tabla {
+    border: 1px solid #ddd;
+}
+
+
+.tabla {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+tabla {
+    background-color: transparent;
+}
+
+tabla {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+

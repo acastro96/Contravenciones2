@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivPerfilrecurso" table="CIV_PERFILRECURSO" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <comment>En esta tabla se almacenan los recursos disponibles para los diferentes perfiles de usuario del sistema.</comment>
+        <composite-id name="id" class="com.contravenciones.tr.persistence.CivPerfilrecursoId">
+            <key-property name="recId" type="big_decimal">
+                <column name="REC_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="usuId" type="big_decimal">
+                <column name="USU_ID" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" update="false" insert="false" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="civRecursos" class="com.contravenciones.tr.persistence.CivRecursos" update="false" insert="false" fetch="select">
+            <column name="REC_ID" precision="22" scale="0" not-null="true">
+                <comment>ID del recurso</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civPerfiles" class="com.contravenciones.tr.persistence.CivPerfiles" fetch="select">
+            <column name="PERF_ID" precision="22" scale="0">
+                <comment>ID del perfil</comment>
+            </column>
+        </many-to-one>
+        <property name="perrecFechaini" type="date">
+            <column name="PERREC_FECHAINI" length="7">
+                <comment>Fecha inicial del registro</comment>
+            </column>
+        </property>
+        <property name="perrecFechafin" type="date">
+            <column name="PERREC_FECHAFIN" length="7">
+                <comment>Fecha final del registro</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>
