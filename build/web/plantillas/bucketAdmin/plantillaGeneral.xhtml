@@ -54,7 +54,11 @@
     </h:head>
 
     <h:body onload="bloquear()">
-        
+        <p:ajaxStatus style="z-index: 5000;" onstart="PF('statusDialog').show()"  onsuccess="PF('statusDialog').hide();" onerror="window.location.replace('#{request.contextPath}/content/home.civ')"/>
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
+            <p:graphicImage url="/resources/images/loading.gif" style="width: 25px;"/> Espere...
+        </p:dialog>
         <section id="container">
             <div id="top" class="top">
                 <ui:insert name="top">
