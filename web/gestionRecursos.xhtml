@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <ui:composition template="./plantillas/bucketAdmin/plantillaGeneral.xhtml">
+            <ui:define name="content">
+                <c:set var="val" value="false"/>
+                <c:forEach items="${loginBean.listRecursos}" var="rec">
+                    <c:if  test="#{rec eq 'gestionUsuario'}" var="bool">
+                        <c:set var="val" value="true"/>
+                    </c:if>
+                </c:forEach>
+                <c:if  test="#{val eq true}">
+                    <h:form  id="frmgestionRecursos">
+                        <section id="main-content" class="">
+                            <section class="wrapper">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!--breadcrumbs start -->
+                                        <ul class="breadcrumb">
+                                            <li><a href="#"><i class="fa fa-tags"></i> Recursos</a></li>
+                                            <li class="active"><a href="#"><i class="fa fa-search "></i> Consultar</a></li>
+                                        </ul>
+                                        <!--breadcrumbs end -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                        <section class="panel">
+                                            <header class="panel-heading tab-bg-dark-navy-blue ">
+                                                <ul class="nav nav-tabs" >
+                                                    <li class="active">
+                                                        <a data-toggle="tab" href="#nombreRecurso">Nombre</a>
+                                                    </li>
+                                                    <li class="">
+                                                        <a data-toggle="tab" href="#usuario">Usuario</a>
+                                                    </li>
+                                                    <li class="">
+                                                        <a data-toggle="tab" href="#fecha">Fecha Creación</a>
+                                                    </li>
+                                                </ul>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="tab-content">
+                                                    <div id="nombreRecurso" class="tab-pane active">
+                                                        <div class="col-lg-3"></div>
+                                                        <div class="col-lg-7">
+                                                            <label class="col-sm-3 control-label col-lg-3" >Nombre Recurso</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control"/>
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-primary" type="button">Buscar</button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="usuario" class="tab-pane">
+                                                        <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Usuario</label>
+                                                        <div class="col-lg-6">
+                                                            <select class="form-control m-bot15">
+                                                                <option>Rcamacho</option>
+                                                                <option>Amoreno</option>
+                                                                <option>Acastro</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div id="fecha" class="tab-pane">Profile</div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                        <section class="panel">
+                                            <div class="panel-body">
+                                                <table  class="display table table-bordered table-striped" id="dynamic-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Rendering engine</th>
+                                                            <th>Browser</th>
+                                                            <th>Platform(s)</th>
+                                                            <th class="hidden-phone">Engine version</th>
+                                                            <th class="hidden-phone">CSS grade</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="gradeX">
+                                                            <td>Trident</td>
+                                                            <td>Internet
+                                                                Explorer 4.0</td>
+                                                            <td>Win 95+</td>
+                                                            <td class="center hidden-phone">4</td>
+                                                            <td class="center hidden-phone">X</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </h:form>
+                </c:if>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
