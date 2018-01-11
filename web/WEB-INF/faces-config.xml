@@ -31,6 +31,19 @@
         </managed-property>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>gestionpersonasBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanGestionPersona</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>gestionPersonaBO</property-name>
+            <value>#{GestionPersonaBO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <value>#{loginBean}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>parametrosBean</managed-bean-name>
         <managed-bean-class>com.contravenciones.jsf.bean.BeanParametros</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>

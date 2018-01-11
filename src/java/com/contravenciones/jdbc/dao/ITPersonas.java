@@ -6,6 +6,7 @@
 package com.contravenciones.jdbc.dao;
 
 import com.contravenciones.tr.persistence.CivPersonas;
+import java.util.List;
 
 /**
  *
@@ -50,5 +51,16 @@ public interface ITPersonas {
      * @throws Exception La Excepción lanzada en caso de error.
      */
     public CivPersonas consultarPersonasByDocumento(int tipo, String Documento) throws Exception;
+    
+    /**
+     * Retorna el listado de los Datos de Vehículos correspondientes a un
+     * vehiculo de la base de datos.
+     *
+     * @param persona Nombre de usuario. 'ALL' o vacío trae todos los usuarios.
+     * @return Lista con los Usuarios resultantes de la consulta. Retorna NULL
+     * en caso de no encontrarse resultados.
+     * @throws Exception La Excepción lanzada en caso de error.
+     */
+    public List<CivPersonas> listarPersonas(String persona) throws Exception;
     
 }

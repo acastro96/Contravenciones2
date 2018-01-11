@@ -184,6 +184,10 @@
         <property name="cajasDAO" ref="cajasDAO" />
         <property name="usuariosDAO" ref="usuariosDAO" />
     </bean>
+    <bean id="gestionPersonaBO" class="com.contravenciones.tr.bo.GestionPersonaImplBO">
+        <property name="personasDAO" ref="personasDAO" />
+    </bean>
+    
     <bean id="renovarPasswordBO" class="com.contravenciones.tr.bo.RenovarPasswordImplBO">
         <property name="usuariosDAO" ref="usuariosDAO" />
     </bean>

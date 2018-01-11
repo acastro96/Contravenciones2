@@ -4,24 +4,25 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <body>
         <ui:composition template="./plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml">
             <ui:define name="content">
                 <c:set var="val" value="false"/>
                 <c:forEach items="${loginBean.listRecursos}" var="rec">
-                    <c:if  test="#{rec eq 'gestionUsuario'}" var="bool">
+                    <c:if  test="#{rec eq 'gestionPersona'}" var="bool">
                         <c:set var="val" value="true"/>
                     </c:if>
                 </c:forEach>
                 <c:if  test="#{val eq true}">
-                    <h:form id="frmGestionpersona">
+                    <h:form id="gestionPersona">
                         <div class="content-wrapper">
                             <!-- Content Header (Page header) -->
                             <section class="content-header">
                                 <h1>
                                     Gestión De Personas
-                                    <small>Modulo que permitira consultar,Editar e ingresar una nueva persona</small>
+                                    <small>Modulo que permitira consultar, Editar e ingresar una nueva persona</small>
                                 </h1>
                                 <ol class="breadcrumb">
                                     <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -29,6 +30,11 @@
                                     <li class="active">Gestion Personas</li>
                                 </ol>
                             </section>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p:messages closable="true" autoUpdate="false" id="messageGeneral" showDetail="true" />
+                                </div>
+                            </div>
                             <section class="content-header">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -55,9 +61,10 @@
                                                         </div>
                                                         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                                             <div class="input-group margin-5">
-                                                                <h:inputText class="form-control text-uppercase" maxlength="20" id="frmGestionpersona"></h:inputText>
+                                                                <h:inputText class="form-control text-uppercase" maxlength="20" id="txtBuscarPersona" value="#{gestionpersonasBean.buscarPersona}"></h:inputText>
                                                                 <span class="input-group-btn">
                                                                     <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
+                                                                        <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona()}" execute="gestionPersona:txtBuscarPersona" render="gestionPersona:pnGroup"></f:ajax>
                                                                     </h:commandLink>
                                                                 </span>
                                                             </div>
@@ -82,35 +89,52 @@
                                     </div>
                                 </div>
                             </section>
-                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                <div class="box box-primary">
-                                    <div class="box-body">
-
-                                        <table id="example2" class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th width="5%" style="text-align: center">#</th>
-                                                    <th width="15%" style="text-align: center">TIPO DOCUMENTO</th>
-                                                    <th width="20%" style="text-align: center">DOCUMENTO</th>
-                                                    <th width="40%" style="text-align: center">NOMBRE COMPLETO</th>
-                                                    <th width="10%" style="text-align: center">ESTADO</th>
-                                                    <th width="10%" style="text-align: center"><i class="fa fa-gears"/></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td width="5%" style="text-align: center">1</td>
-                                                    <td width="15%" style="text-align: center">C.C</td>
-                                                    <td width="20%" style="text-align: center">1'1143.127.766</td>
-                                                    <td width="40%" style="text-align: center">ANDRES MORENO LOPEZ</td>
-                                                    <td width="10%" style="text-align: center"> ACTIVO</td>
-                                                    <td width="10%" style="text-align: center"> 4</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                            <h:panelGrid id="pnGroup">
+                                <h:panelGroup rendered="#{gestionpersonasBean.mostrarConsulta}">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <h:dataTable id="persona" class="table table-striped table-bordered table-hover" value="#{gestionpersonasBean.listPersonas}"  var="per" cellspacing="0">
+                                                    <h:column>
+                                                        <f:facet name="header">#</f:facet>
+                                                            #{per.perId}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Tipo Documento</f:facet>
+                                                        <h:outputLabel style="text" >
+                                                            #{per.perTipodocumento} 
+                                                        </h:outputLabel>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Documento</f:facet>
+                                                        <h:outputLabel style="text" >
+                                                            #{per.perDocumento} 
+                                                        </h:outputLabel>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Nombre Completo</f:facet>
+                                                        <h:outputLabel style="text" >
+                                                            #{per.perNombre1} #{per.perNombre2} #{per.perApellido1} #{per.perApellido2} 
+                                                        </h:outputLabel>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Estado</f:facet>
+                                                        <h:outputLabel  >
+                                                            #{per.perEstado >= 2 ? "INACTIVO":"ACTIVO"}
+                                                        </h:outputLabel>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Detalle</f:facet>
+                                                        <h:commandLink class="fa fa-eye">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                            <f:ajax event="click" listener="#{gestionusuarioBean.datosUsuario(usu)}" execute="usuEstado usuRunt" render="frmConUsuario:pnlaccordion2" />
+                                                        </h:commandLink>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                </h:panelGroup> 
+                            </h:panelGrid>
                         </div>
                     </h:form>
                 </c:if>
