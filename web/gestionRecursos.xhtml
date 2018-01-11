@@ -10,7 +10,7 @@
             <ui:define name="content">
                 <c:set var="val" value="false"/>
                 <c:forEach items="${loginBean.listRecursos}" var="rec">
-                    <c:if  test="#{rec eq 'gestionUsuario'}" var="bool">
+                    <c:if  test="#{rec eq 'gestionRecursos'}" var="bool">
                         <c:set var="val" value="true"/>
                     </c:if>
                 </c:forEach>
@@ -43,12 +43,12 @@
                                                     <br></br>
                                                     <div class="row">
                                                         <div class="col-md-3"></div>
-                                                        <div class="col-xs-12 visible-xs visible-sm">
+                                                        <div class="col-xs-12 visible-xs">
                                                             <div class="input-group margin-2">
-                                                                <label for="inputPassword3" class="control-label align-left">Nombre Recurso</label>
+                                                                <label for="inputPassword3" class="control-label align-left">Nombre Recursos</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 visible-lg visible-md" style="width: 12%">
+                                                        <div class="col-lg-3 visible-lg visible-md" style="width: 13%">
                                                             <div class="input-group margin-2">
                                                                 <label for="inputPassword3" class="control-label align-left">Nombre Recurso</label>
                                                             </div>
@@ -81,8 +81,7 @@
                                         <!-- /.nav-tabs-custom -->
                                     </div>
                                 </div>
-                            </section>
-                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+
                                 <div class="box box-primary">
                                     <div class="box-body">
 
@@ -110,7 +109,9 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                                
+                                 <ui:include src="detalleGestionRecurso.xhtml" />
+                            </section>
                         </div>
                     </h:form>
                 </c:if>

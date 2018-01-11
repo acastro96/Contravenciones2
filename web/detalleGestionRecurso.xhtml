@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <c:set var="val" value="false"/>
+        <c:forEach items="${loginBean.listRecursos}" var="rec">
+            <c:if  test="#{rec eq 'gestionRecursos'}" var="bool">
+                <c:set var="val" value="true"/>
+            </c:if>
+        </c:forEach>
+        <c:if  test="#{val eq true}">
+            <h:form id="frmDetalleGestionRecurso">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">RECURSO PRUEBA </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label for="idRecurso">Recurso</label>
+                                    <h:inputText class="form-control text-uppercas" id="idRecurso" readonly="true"></h:inputText>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="nombreRecurso">Nombre Recurso</label>
+                                    <h:inputText class="form-control text-uppercas" id="nombreRecurso" readonly="true"></h:inputText>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="descripcionRecurso">Descripcón Recurso</label>
+                                    <h:inputText class="form-control text-uppercas" id="descripcionRecurso" readonly="true"></h:inputText>                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="fechaInicialRecurso">Fecha Inicial Recurso</label>
+                                    <h:inputText class="form-control text-uppercas" id="fechaInicialRecurso" readonly="true"></h:inputText> 
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="fechaFinalRecurso">Fecha Final Recurso</label>
+                                    <h:inputText class="form-control text-uppercas" id="fechaFinalRecurso" readonly="true"></h:inputText> 
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="estadoRecurso">Estado Recurso</label>
+                                    <h:inputText class="form-control text-uppercas" id="estadoRecurso" readonly="true"></h:inputText> 
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="carpetaRecurso">Carpeta Recurso</label>
+                                    <h:inputText class="form-control text-uppercas" id="carpetaRecurso" readonly="true"></h:inputText> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="moduloRecurso">Modulo</label>
+                                    <h:inputText class="form-control text-uppercas" id="moduloRecurso" readonly="true"></h:inputText> 
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="tipoRecurso">Tipo Recusto</label>
+                                    <h:inputText class="form-control text-uppercas" id="tipoRecurso" readonly="true"></h:inputText> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-6" style="text-align: center">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h:commandLink class="btn btn-danger">
+                                            <span class="fa fa-edit"></span> Editar
+                                        </h:commandLink>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3"></div>
+                        </div>
+                    </div>
+                </div> 
+            </h:form>
+        </c:if>
+
+        <hr></hr>
+
+
+    </body>      
+</html>        
+
