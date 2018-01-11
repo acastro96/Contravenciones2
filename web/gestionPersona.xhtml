@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml">
+            <ui:define name="content">
+                <c:set var="val" value="false"/>
+                <c:forEach items="${loginBean.listRecursos}" var="rec">
+                    <c:if  test="#{rec eq 'gestionUsuario'}" var="bool">
+                        <c:set var="val" value="true"/>
+                    </c:if>
+                </c:forEach>
+                <c:if  test="#{val eq true}">
+                    <h:form id="frmGestionpersona">
+                        <div class="content-wrapper">
+                            <!-- Content Header (Page header) -->
+                            <section class="content-header">
+                                <h1>
+                                    Gestión De Personas
+                                    <small>Modulo que permitira consultar,Editar e ingresar una nueva persona</small>
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                                    <li><a href="gestionPersona.xhtml"><i class="fa fa-briefcase"></i> Personas</a></li>
+                                    <li class="active">Gestion Personas</li>
+                                </ol>
+                            </section>
+                            <section class="content-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="nav-tabs-custom">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#nombreRecurso" data-toggle="tab">Nombre Persona</a></li>
+                                                <li><a href="#usuarioRecurso" data-toggle="tab">Documento Y Tipo Documento</a></li>
+                                                <li><a href="#fechaRecurso" data-toggle="tab">Fecha Ingreso</a></li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="active tab-pane" id="nombreRecurso">
+                                                    <br></br>
+                                                    <div class="row">
+                                                        <div class="col-md-3"></div>
+                                                        <div class="col-xs-12 visible-xs visible-sm">
+                                                            <div class="input-group margin-2">
+                                                                <label for="inputPassword3" class="control-label align-left">Nombre Persona</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 visible-lg visible-md" style="width: 12%">
+                                                            <div class="input-group margin-2">
+                                                                <label for="inputPassword3" class="control-label align-left">Nombre Persona</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                                            <div class="input-group margin-5">
+                                                                <h:inputText class="form-control text-uppercase" maxlength="20" id="frmGestionpersona"></h:inputText>
+                                                                <span class="input-group-btn">
+                                                                    <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
+                                                                    </h:commandLink>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr></hr>
+                                                </div>
+                                                <!-- /.tab-pane -->
+                                                <div class="tab-pane" id="usuarioRecurso">
+                                                    c
+                                                </div>
+                                                <!-- /.tab-pane -->
+
+                                                <div class="tab-pane" id="fechaRecurso">
+                                                    b
+                                                </div>
+                                                <!-- /.tab-pane -->
+                                            </div>
+                                            <!-- /.tab-content -->
+                                        </div>
+                                        <!-- /.nav-tabs-custom -->
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <div class="box box-primary">
+                                    <div class="box-body">
+
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th width="5%" style="text-align: center">#</th>
+                                                    <th width="15%" style="text-align: center">TIPO DOCUMENTO</th>
+                                                    <th width="20%" style="text-align: center">DOCUMENTO</th>
+                                                    <th width="40%" style="text-align: center">NOMBRE COMPLETO</th>
+                                                    <th width="10%" style="text-align: center">ESTADO</th>
+                                                    <th width="10%" style="text-align: center"><i class="fa fa-gears"/></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td width="5%" style="text-align: center">1</td>
+                                                    <td width="15%" style="text-align: center">C.C</td>
+                                                    <td width="20%" style="text-align: center">1'1143.127.766</td>
+                                                    <td width="40%" style="text-align: center">ANDRES MORENO LOPEZ</td>
+                                                    <td width="10%" style="text-align: center"> ACTIVO</td>
+                                                    <td width="10%" style="text-align: center"> 4</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </c:if>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
